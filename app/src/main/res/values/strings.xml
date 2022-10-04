@@ -13,4 +13,5 @@
     <string name="nickname_input">Nickname</string>
     <string name="part_input">Part</string>
     <string name="mbti_input">Mbti</string>
+    <string name="profile">프로필 사진</string>
 </resources>
