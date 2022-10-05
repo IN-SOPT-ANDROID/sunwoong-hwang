@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sopt.sample.data.model.User
+import org.sopt.sample.data.model.UserDetail
 import org.sopt.sample.presentation.common.Event
 
 class SignInViewModel : ViewModel() {
@@ -15,6 +16,10 @@ class SignInViewModel : ViewModel() {
 
     fun setUser(user: User) {
         this.user = user
+    }
+
+    fun getUserDetail(): UserDetail {
+        return UserDetail(nickname = user!!.nickname, part = user!!.part, mbti = user!!.mbti)
     }
 
     fun signIn(id: String, password: String) {

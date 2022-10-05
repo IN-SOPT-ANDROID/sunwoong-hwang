@@ -77,7 +77,9 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun startHomeActivity() {
-        startActivity(Intent(this, HomeActivity::class.java))
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.putExtra("userDetail", viewModel.getUserDetail())
+        startActivity(intent)
         finish()
     }
 }
