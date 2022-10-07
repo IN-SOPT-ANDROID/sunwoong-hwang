@@ -9,10 +9,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import org.sopt.sample.R
 import org.sopt.sample.data.model.User
 import org.sopt.sample.databinding.ActivitySignInBinding
-import org.sopt.sample.presentation.common.EventObserve
-import org.sopt.sample.presentation.common.ViewModelFactory
+import org.sopt.sample.presentation.common.*
 import org.sopt.sample.presentation.home.view.HomeActivity
 import org.sopt.sample.presentation.signin.viewmodel.SignInViewModel
 import org.sopt.sample.presentation.signup.view.SignUpActivity
@@ -50,11 +50,11 @@ class SignInActivity : AppCompatActivity() {
         viewModel.signInEvent.observe(
             this, EventObserve { isPossible ->
                 if (isPossible) {
-                    Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.success_sign_in, Toast.LENGTH_SHORT).show()
                     setSharedPreferenceToUser(viewModel.getUser()!!)
                     startHomeActivity()
                 } else {
-                    Toast.makeText(this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.failure_sign_in, Toast.LENGTH_SHORT).show()
                 }
             }
         )
@@ -65,11 +65,12 @@ class SignInActivity : AppCompatActivity() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
                     val user: User? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        result.data?.getSerializableExtra("user", User::class.java)
+                        result.data?.getSerializableExtra(USER, User::class.java)
                     } else {
-                        result.data?.getSerializableExtra("user") as User?
+                        result.data?.getSerializableExtra(USER) as User?
                     }
-                    Snackbar.make(binding.root, "SOPT에 오신걸 환영합니다!", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, R.string.success_sign_up, Snackbar.LENGTH_SHORT)
+                        .show()
                     viewModel.setUser(user!!)
                 }
             }
@@ -81,21 +82,21 @@ class SignInActivity : AppCompatActivity() {
 
     private fun startHomeActivity() {
         val intent = Intent(this, HomeActivity::class.java)
-        intent.putExtra("user", viewModel.getUser())
+        intent.putExtra(USER, viewModel.getUser())
         startActivity(intent)
         finish()
     }
 
     private fun setSharedPreferenceToUser(user: User) {
-        val sharedPreferences = getSharedPreferences("AUTH", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(AUTH, MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         with(editor) {
-            putString("id", user.id)
-            putString("password", user.password)
-            putString("mbti", user.mbti)
-            putString("part", user.part)
-            putString("nickname", user.nickname)
-            putString("profileUrl", user.profileUrl)
+            putString(ID, user.id)
+            putString(PASSWORD, user.password)
+            putString(MBTI, user.mbti)
+            putString(PART, user.part)
+            putString(NICKNAME, user.nickname)
+            putString(PROFILE_URL, user.profileUrl)
             apply()
         }
     }

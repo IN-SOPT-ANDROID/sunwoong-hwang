@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import org.sopt.sample.R
 import org.sopt.sample.data.model.User
 import org.sopt.sample.databinding.ActivitySignUpBinding
 import org.sopt.sample.presentation.common.EventObserve
+import org.sopt.sample.presentation.common.USER
 import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.signin.view.SignInActivity
 import org.sopt.sample.presentation.signup.viewmodel.SignUpViewModel
@@ -53,7 +55,7 @@ class SignUpActivity : AppCompatActivity() {
                 if (isPossible) {
                     startSignInActivity(viewModel.getUser()!!)
                 } else {
-                    Toast.makeText(this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.failure_sign_up, Toast.LENGTH_SHORT).show()
                 }
             }
         )
@@ -67,7 +69,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun startSignInActivity(user: User) {
         val intent = Intent(this, SignInActivity::class.java)
-        intent.putExtra("user", user)
+        intent.putExtra(USER, user)
         setResult(RESULT_OK, intent)
         finish()
     }

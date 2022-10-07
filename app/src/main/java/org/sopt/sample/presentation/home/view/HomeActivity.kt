@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.sample.data.model.User
 import org.sopt.sample.databinding.ActivityHomeBinding
+import org.sopt.sample.presentation.common.USER
 import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.home.viewmodel.HomeViewModel
 
@@ -27,9 +28,9 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setUser() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent?.getSerializableExtra("user", User::class.java)
+            intent?.getSerializableExtra(USER, User::class.java)
         } else {
-            intent?.getSerializableExtra("user") as User
+            intent?.getSerializableExtra(USER) as User
         }?.let { user ->
             viewModel.setUser(user)
         }
