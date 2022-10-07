@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- Text style -->
     <style name="Text24" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">@color/black</item>
     </style>
@@ -44,5 +45,10 @@
 
     <style name="Text14.Bold" parent="Text14">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Splash theme -->
+    <style name="Theme.INSOPTAndroidPractice.Splash">
+        <item name="android:windowBackground">@color/white</item>
     </style>
 </resources>
