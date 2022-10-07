@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sopt.sample.data.model.User
-import org.sopt.sample.data.model.UserDetail
 import org.sopt.sample.presentation.common.Event
 
 class SignInViewModel : ViewModel() {
