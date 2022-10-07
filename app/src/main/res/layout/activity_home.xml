@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="userDetail"
-            type="org.sopt.sample.data.model.UserDetail" />
+            name="user"
+            type="org.sopt.sample.data.model.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +47,7 @@
 
         <ImageView
             android:id="@+id/home_iv"
-            circleImageUrl="@{userDetail.profileUrl}"
+            circleImageUrl="@{user.profileUrl}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="30dp"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:maxLines="1"
-            android:text="@{userDetail.nickname}"
+            android:text="@{user.nickname}"
             app:layout_constraintEnd_toEndOf="@id/home_end_gl"
             app:layout_constraintStart_toStartOf="@id/home_start_gl"
             app:layout_constraintTop_toBottomOf="@id/home_nickname_tv"
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:maxLines="1"
-            android:text="@{userDetail.part}"
+            android:text="@{user.part}"
             app:layout_constraintEnd_toEndOf="@id/home_end_gl"
             app:layout_constraintStart_toStartOf="@id/home_start_gl"
             app:layout_constraintTop_toBottomOf="@id/home_part_tv"
@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:maxLines="1"
-            android:text="@{userDetail.mbti}"
+            android:text="@{user.mbti}"
             app:layout_constraintEnd_toEndOf="@id/home_end_gl"
             app:layout_constraintStart_toStartOf="@id/home_start_gl"
             app:layout_constraintTop_toBottomOf="@id/home_mbti_tv"
