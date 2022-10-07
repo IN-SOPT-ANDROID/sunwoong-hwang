@@ -79,12 +79,13 @@
                 android:id="@+id/sign_in_password_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/sign_in_login_btn"
+            android:id="@+id/sign_in_sign_in_btn"
             style="@style/Text16.White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

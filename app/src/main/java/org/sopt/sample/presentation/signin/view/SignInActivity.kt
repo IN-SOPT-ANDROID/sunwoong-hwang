@@ -36,7 +36,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setOnClickListener() {
         with(binding) {
-            signInLoginBtn.setOnClickListener {
+            signInSignInBtn.setOnClickListener {
                 viewModel.signIn(signInIdEt.text.toString(), signInPasswordEt.text.toString())
             }
             signInSignUpBtn.setOnClickListener {

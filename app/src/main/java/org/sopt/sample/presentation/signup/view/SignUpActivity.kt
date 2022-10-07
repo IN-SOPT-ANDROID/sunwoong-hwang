@@ -42,7 +42,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun setOnClickListener() {
-        binding.signUpLoginBtn.setOnClickListener {
+        binding.signUpSignUpBtn.setOnClickListener {
             viewModel.signUp(getUser())
         }
     }

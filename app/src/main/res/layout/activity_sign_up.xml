@@ -94,6 +94,7 @@
                         android:id="@+id/sign_up_password_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textPassword"
                         android:maxLines="1" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -166,7 +167,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/sign_up_login_btn"
+            android:id="@+id/sign_up_sign_up_btn"
             style="@style/Text16.White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
