@@ -51,6 +51,7 @@ class SignInActivity : AppCompatActivity() {
             this, EventObserve { isPossible ->
                 if (isPossible) {
                     Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    setSharedPreferenceToUser(viewModel.getUser()!!)
                     startHomeActivity()
                 } else {
                     Toast.makeText(this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
@@ -80,8 +81,22 @@ class SignInActivity : AppCompatActivity() {
 
     private fun startHomeActivity() {
         val intent = Intent(this, HomeActivity::class.java)
-        intent.putExtra("userDetail", viewModel.getUserDetail())
+        intent.putExtra("user", viewModel.getUser())
         startActivity(intent)
         finish()
+    }
+
+    private fun setSharedPreferenceToUser(user: User) {
+        val sharedPreferences = getSharedPreferences("AUTH", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        with(editor) {
+            putString("id", user.id)
+            putString("password", user.password)
+            putString("mbti", user.mbti)
+            putString("part", user.part)
+            putString("nickname", user.nickname)
+            putString("profileUrl", user.profileUrl)
+            apply()
+        }
     }
 }

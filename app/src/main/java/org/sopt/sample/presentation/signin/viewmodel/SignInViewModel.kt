@@ -18,8 +18,8 @@ class SignInViewModel : ViewModel() {
         this.user = user
     }
 
-    fun getUserDetail(): UserDetail {
-        return UserDetail(nickname = user!!.nickname, part = user!!.part, mbti = user!!.mbti)
+    fun getUser(): User? {
+        return user
     }
 
     fun signIn(id: String, password: String) {

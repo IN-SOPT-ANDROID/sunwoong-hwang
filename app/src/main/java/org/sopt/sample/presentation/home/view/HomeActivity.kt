@@ -2,10 +2,9 @@ package org.sopt.sample.presentation.home.view
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import org.sopt.sample.data.model.UserDetail
+import org.sopt.sample.data.model.User
 import org.sopt.sample.databinding.ActivityHomeBinding
 import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.home.viewmodel.HomeViewModel
@@ -22,26 +21,25 @@ class HomeActivity : AppCompatActivity() {
 
         binding.lifecycleOwner = this
 
-        setUserDetail()
+        setUser()
         setObservers()
     }
 
-    private fun setUserDetail() {
+    private fun setUser() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent?.getSerializableExtra("userDetail", UserDetail::class.java)
+            intent?.getSerializableExtra("user", User::class.java)
         } else {
-            intent?.getSerializableExtra("userDetail") as UserDetail
-        }?.let { userDetail ->
-            viewModel.setUserDetail(userDetail)
+            intent?.getSerializableExtra("user") as User
+        }?.let { user ->
+            viewModel.setUser(user)
         }
     }
 
     private fun setObservers() {
-        viewModel.userDetail.observe(
+        viewModel.user.observe(
             this
-        ) { userDetail ->
-            Log.d("SSS", userDetail.profileUrl)
-            binding.userDetail = userDetail
+        ) { user ->
+            binding.user = user
         }
     }
 }
