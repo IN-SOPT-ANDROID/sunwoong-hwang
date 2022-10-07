@@ -53,7 +53,7 @@
             android:layout_marginTop="30dp"
             android:contentDescription="@string/profile"
             android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/home_end_gl"
             app:layout_constraintStart_toStartOf="@id/home_start_gl"
             app:layout_constraintTop_toBottomOf="@id/home_tb" />
