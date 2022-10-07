@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import org.sopt.sample.data.model.User
 import org.sopt.sample.databinding.ActivitySignInBinding
 import org.sopt.sample.presentation.common.EventObserve
@@ -67,6 +68,7 @@ class SignInActivity : AppCompatActivity() {
                     } else {
                         result.data?.getSerializableExtra("user") as User?
                     }
+                    Snackbar.make(binding.root, "SOPT에 오신걸 환영합니다!", Snackbar.LENGTH_SHORT).show()
                     viewModel.setUser(user!!)
                 }
             }

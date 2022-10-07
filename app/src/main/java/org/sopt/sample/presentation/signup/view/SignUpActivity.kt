@@ -51,7 +51,6 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.signUpEvent.observe(
             this, EventObserve { isPossible ->
                 if (isPossible) {
-                    Toast.makeText(this, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
                     startSignInActivity(viewModel.getUser()!!)
                 } else {
                     Toast.makeText(this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
