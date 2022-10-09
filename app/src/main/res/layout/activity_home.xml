@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="org.sopt.sample.data.model.User" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/home_tb"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/Text24.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/sign_in_title" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/home_start_gl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="30dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/home_end_gl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="30dp" />
+
+        <ImageView
+            android:id="@+id/home_iv"
+            circleImageUrl="@{user.profileUrl}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/profile"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/home_end_gl"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_tb" />
+
+        <TextView
+            android:id="@+id/home_nickname_tv"
+            style="@style/Text20.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/nickname_input"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_iv" />
+
+        <TextView
+            android:id="@+id/home_nickname_input_tv"
+            style="@style/Text16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:text="@{user.nickname}"
+            app:layout_constraintEnd_toEndOf="@id/home_end_gl"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_nickname_tv"
+            tools:text="조이" />
+
+        <View
+            android:id="@+id/home_nickname_v"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="@id/home_end_gl"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_nickname_input_tv" />
+
+        <TextView
+            android:id="@+id/home_part_tv"
+            style="@style/Text20.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/part_input"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_nickname_v" />
+
+        <TextView
+            android:id="@+id/home_part_input_tv"
+            style="@style/Text16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:text="@{user.part}"
+            app:layout_constraintEnd_toEndOf="@id/home_end_gl"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_part_tv"
+            tools:text="안드로이드" />
+
+        <View
+            android:id="@+id/home_part_v"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="@id/home_end_gl"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_part_input_tv" />
+
+        <TextView
+            android:id="@+id/home_mbti_tv"
+            style="@style/Text20.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/mbti_input"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_part_v" />
+
+        <TextView
+            android:id="@+id/home_mbti_input_tv"
+            style="@style/Text16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:text="@{user.mbti}"
+            app:layout_constraintEnd_toEndOf="@id/home_end_gl"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_mbti_tv"
+            tools:text="ISTP" />
+
+        <View
+            android:id="@+id/home_mbti_v"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="@id/home_end_gl"
+            app:layout_constraintStart_toStartOf="@id/home_start_gl"
+            app:layout_constraintTop_toBottomOf="@id/home_mbti_input_tv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
