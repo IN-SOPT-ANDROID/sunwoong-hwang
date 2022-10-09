@@ -20,7 +20,7 @@ class ViewModelFactory : ViewModelProvider.Factory {
                 HomeViewModel() as T
             }
             else -> {
-                throw java.lang.IllegalArgumentException("Failed to create ViewModel: ${modelClass.name}")
+                throw IllegalArgumentException("Failed to create ViewModel: ${modelClass.name}")
             }
         }
     }
