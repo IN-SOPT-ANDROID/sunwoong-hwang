@@ -37,9 +37,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        viewModel.user.observe(
-            this
-        ) { user ->
+        viewModel.user.observe(this) { user ->
             binding.user = user
         }
     }
