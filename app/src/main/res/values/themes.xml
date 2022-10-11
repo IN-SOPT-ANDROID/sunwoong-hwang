@@ -31,6 +31,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Text18" parent="Text20">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Text18.Bold" parent="Text18">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Text16" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/black</item>
     </style>
