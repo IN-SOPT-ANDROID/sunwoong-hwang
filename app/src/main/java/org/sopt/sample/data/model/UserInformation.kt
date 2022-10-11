@@ -19,5 +19,5 @@ data class GithubInformation(
     val name: String,
     val description: String,
     @SerializedName("html_url") val htmlUrl: String,
-    @SerializedName("stargazers_count") val stargazersCount: Int
+    @SerializedName("stargazers_count") val stargazersCount: String
 ) : UserInformation()
