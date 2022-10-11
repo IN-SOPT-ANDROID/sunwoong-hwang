@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.sample.R
 import org.sopt.sample.data.model.User
+import org.sopt.sample.presentation.MainActivity
 import org.sopt.sample.presentation.common.*
-import org.sopt.sample.presentation.home.view.HomeActivity
 import org.sopt.sample.presentation.signin.view.SignInActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
     private fun isSignIn() {
         val user: User? = getUserFromSharedPreference()
         if (user != null) {
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             Toast.makeText(this, R.string.success_sign_in, Toast.LENGTH_SHORT).show()
             intent.putExtra(USER, user)
             startActivity(intent)

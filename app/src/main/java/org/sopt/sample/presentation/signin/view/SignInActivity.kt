@@ -12,15 +12,15 @@ import com.google.android.material.snackbar.Snackbar
 import org.sopt.sample.R
 import org.sopt.sample.data.model.User
 import org.sopt.sample.databinding.ActivitySignInBinding
+import org.sopt.sample.presentation.MainActivity
 import org.sopt.sample.presentation.common.*
-import org.sopt.sample.presentation.home.view.HomeActivity
 import org.sopt.sample.presentation.signin.viewmodel.SignInViewModel
 import org.sopt.sample.presentation.signup.view.SignUpActivity
 
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
-    private val viewModel: SignInViewModel by viewModels { ViewModelFactory() }
+    private val viewModel: SignInViewModel by viewModels { ViewModelFactory(this) }
     private lateinit var launcher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +52,7 @@ class SignInActivity : AppCompatActivity() {
                 if (isPossible) {
                     Toast.makeText(this, R.string.success_sign_in, Toast.LENGTH_SHORT).show()
                     setSharedPreferenceToUser(viewModel.getUser()!!)
-                    startHomeActivity()
+                    startMainActivity()
                 } else {
                     Toast.makeText(this, R.string.failure_sign_in, Toast.LENGTH_SHORT).show()
                 }
@@ -80,8 +80,8 @@ class SignInActivity : AppCompatActivity() {
         launcher.launch(Intent(this, SignUpActivity::class.java))
     }
 
-    private fun startHomeActivity() {
-        val intent = Intent(this, HomeActivity::class.java)
+    private fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(USER, viewModel.getUser())
         startActivity(intent)
         finish()

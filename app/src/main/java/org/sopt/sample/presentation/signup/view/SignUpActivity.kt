@@ -17,7 +17,7 @@ import org.sopt.sample.presentation.signup.viewmodel.SignUpViewModel
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
-    private val viewModel: SignUpViewModel by viewModels { ViewModelFactory() }
+    private val viewModel: SignUpViewModel by viewModels { ViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
