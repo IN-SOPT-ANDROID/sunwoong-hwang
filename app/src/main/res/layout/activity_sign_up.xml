@@ -23,7 +23,7 @@
                 app:navigationIcon="@drawable/ic_back">
 
                 <TextView
-                    style="@style/Text20.Bold"
+                    style="@style/Text20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
