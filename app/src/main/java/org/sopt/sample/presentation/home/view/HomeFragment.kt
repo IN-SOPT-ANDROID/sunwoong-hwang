@@ -12,6 +12,7 @@ import org.sopt.sample.databinding.FragmentHomeBinding
 import org.sopt.sample.presentation.common.EventObserve
 import org.sopt.sample.presentation.common.USER
 import org.sopt.sample.presentation.common.ViewModelFactory
+import org.sopt.sample.presentation.home.adapter.HomeAdapter
 import org.sopt.sample.presentation.home.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -37,6 +38,7 @@ class HomeFragment : Fragment() {
 
         setUser()
         setObservers()
+        setAdapter()
     }
 
     override fun onDestroyView() {
@@ -57,14 +59,18 @@ class HomeFragment : Fragment() {
     private fun setObservers() {
         viewModel.signUpEvent.observe(
             viewLifecycleOwner, EventObserve {
-                viewModel.getGithubInformation()
+                viewModel.getGithubInformations()
             }
         )
+    }
 
+    private fun setAdapter() {
+        val adapter = HomeAdapter()
+        binding.homeRv.adapter = adapter
         viewModel.userInformations.observe(
             viewLifecycleOwner
         ) { userInformations ->
-            // adapter 연결 코드 작성 예정
+            adapter.submitUserInformations(userInformations)
         }
     }
 }
