@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:paddingTop="20dp">
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/github_title_tv"
