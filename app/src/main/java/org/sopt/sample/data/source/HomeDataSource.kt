@@ -4,5 +4,5 @@ import org.sopt.sample.data.model.GithubInformation
 
 interface HomeDataSource {
 
-    fun getGithubInformation(): List<GithubInformation>?
+    fun getGithubInformations(): List<GithubInformation>?
 }

@@ -8,7 +8,7 @@ class HomeDataSourceImpl(private val assetsLoader: AssetsLoader) : HomeDataSourc
 
     private val gson = Gson()
 
-    override fun getGithubInformation(): List<GithubInformation>? {
+    override fun getGithubInformations(): List<GithubInformation>? {
         return assetsLoader.getJsonString(DATA)?.let { stringData ->
             gson.fromJson(stringData, Array<GithubInformation>::class.java).toList()
         }

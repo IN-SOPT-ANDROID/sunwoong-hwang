@@ -25,8 +25,8 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
         _signUpEvent.value = Event(true)
     }
 
-    fun getGithubInformation() {
-        val githubInformations = homeRepository.getGithubInformation()
+    fun getGithubInformations() {
+        val githubInformations = homeRepository.getGithubInformations()
         val userInformations = mutableListOf<UserInformation>()
         userInformations.add(user!!)
         if (githubInformations != null) {
