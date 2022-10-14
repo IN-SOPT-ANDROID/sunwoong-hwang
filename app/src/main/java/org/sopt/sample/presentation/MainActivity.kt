@@ -43,6 +43,14 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+
+        binding.mainBnv.setOnItemReselectedListener { item ->
+            when (item.itemId) {
+                R.id.bottom_navigation_home -> {
+                    (supportFragmentManager.findFragmentById(R.id.main_fcv) as HomeFragment).scrollToTop()
+                }
+            }
+        }
     }
 
     private fun startTargetFragment(fragment: Fragment) {

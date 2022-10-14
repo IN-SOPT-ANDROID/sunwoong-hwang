@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import org.sopt.sample.data.model.User
 import org.sopt.sample.databinding.FragmentHomeBinding
-import org.sopt.sample.presentation.common.EventObserve
+import org.sopt.sample.presentation.common.EventObserver
 import org.sopt.sample.presentation.common.USER
 import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.home.adapter.HomeAdapter
@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
 
     private fun setObservers() {
         viewModel.signUpEvent.observe(
-            viewLifecycleOwner, EventObserve {
+            viewLifecycleOwner, EventObserver {
                 viewModel.getGithubInformations()
             }
         )
@@ -72,5 +72,9 @@ class HomeFragment : Fragment() {
         ) { userInformations ->
             adapter.submitUserInformations(userInformations)
         }
+    }
+
+    fun scrollToTop() {
+        binding.homeRv.smoothScrollToPosition(0)
     }
 }
