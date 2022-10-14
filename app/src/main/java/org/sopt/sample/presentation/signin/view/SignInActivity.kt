@@ -48,7 +48,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setObservers() {
         viewModel.signInEvent.observe(
-            this, EventObserve { isPossible ->
+            this, EventObserver { isPossible ->
                 if (isPossible) {
                     Toast.makeText(this, R.string.success_sign_in, Toast.LENGTH_SHORT).show()
                     setSharedPreferenceToUser(viewModel.getUser()!!)

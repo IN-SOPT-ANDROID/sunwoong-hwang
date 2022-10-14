@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.sopt.sample.R
 import org.sopt.sample.data.model.User
 import org.sopt.sample.databinding.ActivitySignUpBinding
-import org.sopt.sample.presentation.common.EventObserve
+import org.sopt.sample.presentation.common.EventObserver
 import org.sopt.sample.presentation.common.USER
 import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.signin.view.SignInActivity
@@ -51,7 +51,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setObservers() {
         viewModel.signUpEvent.observe(
-            this, EventObserve { isPossible ->
+            this, EventObserver { isPossible ->
                 if (isPossible) {
                     startSignInActivity(viewModel.getUser()!!)
                 } else {
