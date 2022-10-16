@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="githubInformation"
+            type="org.sopt.sample.data.model.GithubInformation" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/github_title_tv"
+            style="@style/Text16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{githubInformation.name}"
+            app:layout_constraintEnd_toStartOf="@id/github_star_iv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="algorithm" />
+
+        <ImageView
+            android:id="@+id/github_star_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/github_star"
+            android:src="@drawable/ic_star"
+            app:layout_constraintBottom_toBottomOf="@id/github_title_tv"
+            app:layout_constraintEnd_toStartOf="@id/github_star_tv"
+            app:layout_constraintTop_toTopOf="@id/github_title_tv" />
+
+        <TextView
+            android:id="@+id/github_star_tv"
+            style="@style/Text16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{githubInformation.stargazersCount}"
+            app:layout_constraintBottom_toBottomOf="@id/github_star_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/github_star_iv"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/github_description_tv"
+            style="@style/Text14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{githubInformation.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/github_title_tv"
+            tools:text="test" />
+
+        <TextView
+            android:id="@+id/github_url_tv"
+            style="@style/Text14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{githubInformation.htmlUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/github_description_tv"
+            tools:text="test" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="@id/github_url_tv"
+            app:layout_constraintStart_toStartOf="@id/github_url_tv"
+            app:layout_constraintTop_toBottomOf="@id/github_url_tv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

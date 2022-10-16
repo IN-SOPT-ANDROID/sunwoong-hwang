@@ -11,7 +11,8 @@ class SignInViewModel : ViewModel() {
     private var user: User? = null
 
     private val _signInEvent = MutableLiveData<Event<Boolean>>()
-    val signInEvent: LiveData<Event<Boolean>> = _signInEvent
+    val signInEvent: LiveData<Event<Boolean>>
+        get() = _signInEvent
 
     fun setUser(user: User) {
         this.user = user

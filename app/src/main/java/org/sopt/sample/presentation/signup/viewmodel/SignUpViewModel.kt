@@ -11,7 +11,8 @@ class SignUpViewModel : ViewModel() {
     private var user: User? = null
 
     private val _signUpEvent = MutableLiveData<Event<Boolean>>()
-    val signUpEvent: LiveData<Event<Boolean>> = _signUpEvent
+    val signUpEvent: LiveData<Event<Boolean>>
+        get() = _signUpEvent
 
     fun getUser(): User? {
         return user
