@@ -5,7 +5,5 @@ import org.sopt.sample.data.source.HomeDataSourceImpl
 
 class HomeRepository(private val homeDataSourceImpl: HomeDataSourceImpl) {
 
-    fun getGithubInformations(): List<GithubInformation>? {
-        return homeDataSourceImpl.getGithubInformations()
-    }
+    fun getGithubInformations(): List<GithubInformation>? = homeDataSourceImpl.getGithubInformations()
 }
