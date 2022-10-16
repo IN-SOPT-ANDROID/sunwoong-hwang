@@ -16,12 +16,8 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            VIEW_TYPE_PROFILE -> {
-                HomeUserViewHolder(ItemProfileBinding.inflate(inflater, parent, false))
-            }
-            else -> {
-                HomeGithubInformationViewHolder(ItemGithubBinding.inflate(inflater, parent, false))
-            }
+            VIEW_TYPE_PROFILE -> HomeUserViewHolder(ItemProfileBinding.inflate(inflater, parent, false))
+            else ->  HomeGithubInformationViewHolder(ItemGithubBinding.inflate(inflater, parent, false))
         }
     }
 
