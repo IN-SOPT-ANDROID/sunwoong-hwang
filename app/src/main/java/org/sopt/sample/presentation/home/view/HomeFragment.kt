@@ -1,16 +1,13 @@
 package org.sopt.sample.presentation.home.view
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import org.sopt.sample.data.model.User
 import org.sopt.sample.databinding.FragmentHomeBinding
-import org.sopt.sample.presentation.common.EventObserver
-import org.sopt.sample.presentation.common.USER
+import org.sopt.sample.util.EventObserver
 import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.home.adapter.HomeAdapter
 import org.sopt.sample.presentation.home.viewmodel.HomeViewModel
@@ -36,7 +33,6 @@ class HomeFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        setUser()
         setObservers()
         setAdapter()
     }
@@ -44,16 +40,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun setUser() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            activity?.intent?.getSerializableExtra(USER, User::class.java)
-        } else {
-            activity?.intent?.getSerializableExtra(USER) as User
-        }?.let { user ->
-            viewModel.setUser(user)
-        }
     }
 
     private fun setObservers() {

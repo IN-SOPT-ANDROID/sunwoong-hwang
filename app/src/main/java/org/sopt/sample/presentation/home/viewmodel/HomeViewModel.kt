@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import org.sopt.sample.data.model.User
 import org.sopt.sample.data.model.UserInformation
 import org.sopt.sample.data.repository.HomeRepository
-import org.sopt.sample.presentation.common.Event
+import org.sopt.sample.util.Event
 
 class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
 
