@@ -1,27 +1,27 @@
 package org.sopt.sample.presentation.signin.view
 
 import android.content.Intent
-import android.os.Build
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import org.sopt.sample.R
-import org.sopt.sample.data.model.User
+import org.sopt.sample.data.model.SignInRequest
 import org.sopt.sample.databinding.ActivitySignInBinding
 import org.sopt.sample.presentation.MainActivity
-import org.sopt.sample.presentation.common.*
+import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.signin.viewmodel.SignInViewModel
 import org.sopt.sample.presentation.signup.view.SignUpActivity
+import org.sopt.sample.util.EMAIL
+import org.sopt.sample.util.EventObserver
+import org.sopt.sample.util.PASSWORD
 
 class SignInActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivitySignInBinding
     private val viewModel: SignInViewModel by viewModels { ViewModelFactory(this) }
-    private lateinit var launcher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +30,16 @@ class SignInActivity : AppCompatActivity() {
 
         binding.lifecycleOwner = this
 
-        setOnClickListener()
         setObservers()
-        setActivityResultLauncher()
+        setOnClickListener()
+        setAddTextChangedListener()
     }
 
-    private fun setOnClickListener() {
+    private fun getUser(): SignInRequest {
         with(binding) {
-            signInSignInBtn.setOnClickListener {
-                viewModel.signIn(signInIdEt.text.toString(), signInPasswordEt.text.toString())
-            }
-            signInSignUpBtn.setOnClickListener {
-                startSignUpActivity()
-            }
+            val email = signInIdEt.text.toString()
+            val password = signInPasswordEt.text.toString()
+            return SignInRequest(email, password)
         }
     }
 
@@ -51,53 +48,74 @@ class SignInActivity : AppCompatActivity() {
             this, EventObserver { isPossible ->
                 if (isPossible) {
                     Toast.makeText(this, R.string.success_sign_in, Toast.LENGTH_SHORT).show()
-                    setSharedPreferenceToUser(viewModel.getUser()!!)
                     startMainActivity()
                 } else {
                     Toast.makeText(this, R.string.failure_sign_in, Toast.LENGTH_SHORT).show()
                 }
             }
         )
-    }
-
-    private fun setActivityResultLauncher() {
-        launcher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK) {
-                    val user: User? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        result.data?.getSerializableExtra(USER, User::class.java)
-                    } else {
-                        result.data?.getSerializableExtra(USER) as User?
-                    }
-                    Snackbar.make(binding.root, R.string.success_sign_up, Snackbar.LENGTH_SHORT)
-                        .show()
-                    viewModel.setUser(user!!)
+        viewModel.isPromising.observe(
+            this, EventObserver { isSuccess ->
+                if (isSuccess) {
+                    binding.signInSignInBtn.isEnabled = true
+                    binding.signInSignInBtn.backgroundTintList =
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                this,
+                                R.color.black
+                            )
+                        )
+                } else {
+                    binding.signInSignInBtn.isEnabled = false
+                    binding.signInSignInBtn.backgroundTintList =
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                this,
+                                R.color.gray
+                            )
+                        )
                 }
             }
+        )
+    }
+
+    private fun setOnClickListener() {
+        with(binding) {
+            signInSignInBtn.setOnClickListener {
+                viewModel.signIn(getUser())
+            }
+            signInSignUpBtn.setOnClickListener {
+                startSignUpActivity()
+            }
+        }
+    }
+
+    private fun setAddTextChangedListener() {
+        with(binding) {
+            signInIdEt.addTextChangedListener {
+                if (signInIdEt.text.isNullOrEmpty()) {
+                    viewModel.setUserStatus(EMAIL, false)
+                } else {
+                    viewModel.setUserStatus(EMAIL, true)
+                }
+            }
+            signInPasswordEt.addTextChangedListener {
+                if (signInPasswordEt.text.isNullOrEmpty()) {
+                    viewModel.setUserStatus(PASSWORD, false)
+                } else {
+                    viewModel.setUserStatus(PASSWORD, true)
+                }
+            }
+        }
     }
 
     private fun startSignUpActivity() {
-        launcher.launch(Intent(this, SignUpActivity::class.java))
-    }
-
-    private fun startMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(USER, viewModel.getUser())
-        startActivity(intent)
+        startActivity(Intent(this, SignUpActivity::class.java))
         finish()
     }
 
-    private fun setSharedPreferenceToUser(user: User) {
-        val sharedPreferences = getSharedPreferences(AUTH, MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        with(editor) {
-            putString(ID, user.id)
-            putString(PASSWORD, user.password)
-            putString(MBTI, user.mbti)
-            putString(PART, user.part)
-            putString(NICKNAME, user.nickname)
-            putString(PROFILE_URL, user.profileUrl)
-            apply()
-        }
+    private fun startMainActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }
