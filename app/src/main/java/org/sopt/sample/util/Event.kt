@@ -1,4 +1,4 @@
-package org.sopt.sample.presentation.common
+package org.sopt.sample.util
 
 import androidx.lifecycle.Observer
 
