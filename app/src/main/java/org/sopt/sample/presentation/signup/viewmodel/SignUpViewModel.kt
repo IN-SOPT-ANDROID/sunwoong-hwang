@@ -50,7 +50,7 @@ class SignUpViewModel(private val authRepository: AuthRepository) : ViewModel() 
                 if (it.status == 201) {
                     _signUpEvent.value = Event(true)
                 } else {
-                    _signUpEvent.value = Event(true)
+                    _signUpEvent.value = Event(false)
                 }
             }.onFailure {
                 _signUpEvent.value = Event(false)
