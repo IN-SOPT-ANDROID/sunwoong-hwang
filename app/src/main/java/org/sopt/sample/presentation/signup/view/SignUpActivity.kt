@@ -5,7 +5,6 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import org.sopt.sample.R
@@ -18,19 +17,15 @@ import org.sopt.sample.util.EMAIL
 import org.sopt.sample.util.EventObserver
 import org.sopt.sample.util.NAME
 import org.sopt.sample.util.PASSWORD
+import org.sopt.sample.util.binding.BindingActivity
 
-class SignUpActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignUpBinding
+class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private val viewModel: SignUpViewModel by viewModels { ViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySignUpBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         binding.lifecycleOwner = this
-
         setObservers()
         setOnClickListener()
         setAddTextChangedListener()
