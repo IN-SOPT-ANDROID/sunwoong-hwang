@@ -91,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:background="@drawable/background_button"
+            android:backgroundTint="@color/gray"
             android:text="@string/sign_in"
             app:layout_constraintBottom_toTopOf="@id/sign_in_sign_up_btn"
             app:layout_constraintEnd_toEndOf="@id/sign_in_end_gl"
