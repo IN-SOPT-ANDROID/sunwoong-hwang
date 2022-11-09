@@ -111,7 +111,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun setNavigation() {
         binding.signUpTb.setNavigationOnClickListener {
-            finish()
+            startSignInActivity()
         }
     }
 
