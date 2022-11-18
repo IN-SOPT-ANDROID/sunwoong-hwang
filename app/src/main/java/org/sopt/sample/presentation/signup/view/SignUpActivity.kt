@@ -1,6 +1,5 @@
 package org.sopt.sample.presentation.signup.view
 
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.widget.Toast
@@ -11,7 +10,6 @@ import org.sopt.sample.R
 import org.sopt.sample.data.model.SignUpRequest
 import org.sopt.sample.databinding.ActivitySignUpBinding
 import org.sopt.sample.presentation.common.ViewModelFactory
-import org.sopt.sample.presentation.signin.view.SignInActivity
 import org.sopt.sample.presentation.signup.viewmodel.SignUpViewModel
 import org.sopt.sample.util.EMAIL
 import org.sopt.sample.util.EventObserver
@@ -20,7 +18,7 @@ import org.sopt.sample.util.PASSWORD
 import org.sopt.sample.util.binding.BindingActivity
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
-    private val viewModel: SignUpViewModel by viewModels { ViewModelFactory(this) }
+    private val viewModel: SignUpViewModel by viewModels { ViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +44,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
             this, EventObserver { isSuccess ->
                 if (isSuccess) {
                     Toast.makeText(this, R.string.success_sign_up, Toast.LENGTH_SHORT).show()
-                    startSignInActivity()
+                    finish()
                 } else {
                     Toast.makeText(this, R.string.failure_sign_up, Toast.LENGTH_SHORT).show()
                 }
@@ -111,12 +109,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun setNavigation() {
         binding.signUpTb.setNavigationOnClickListener {
-            startSignInActivity()
+            finish()
         }
-    }
-
-    private fun startSignInActivity() {
-        startActivity(Intent(this, SignInActivity::class.java))
-        finish()
     }
 }

@@ -20,7 +20,7 @@ import org.sopt.sample.util.PASSWORD
 import org.sopt.sample.util.binding.BindingActivity
 
 class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
-    private val viewModel: SignInViewModel by viewModels { ViewModelFactory(this) }
+    private val viewModel: SignInViewModel by viewModels { ViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,7 +107,6 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
 
     private fun startSignUpActivity() {
         startActivity(Intent(this, SignUpActivity::class.java))
-        finish()
     }
 
     private fun startMainActivity() {
