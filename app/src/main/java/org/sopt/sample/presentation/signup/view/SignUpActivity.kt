@@ -1,46 +1,58 @@
 package org.sopt.sample.presentation.signup.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import org.sopt.sample.R
-import org.sopt.sample.data.model.User
+import org.sopt.sample.data.model.SignUpRequest
 import org.sopt.sample.databinding.ActivitySignUpBinding
-import org.sopt.sample.presentation.common.EventObserver
-import org.sopt.sample.presentation.common.USER
 import org.sopt.sample.presentation.common.ViewModelFactory
-import org.sopt.sample.presentation.signin.view.SignInActivity
 import org.sopt.sample.presentation.signup.viewmodel.SignUpViewModel
+import org.sopt.sample.util.EMAIL
+import org.sopt.sample.util.EventObserver
+import org.sopt.sample.util.NAME
+import org.sopt.sample.util.PASSWORD
+import org.sopt.sample.util.binding.BindingActivity
 
-class SignUpActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivitySignUpBinding
-    private val viewModel: SignUpViewModel by viewModels { ViewModelFactory(this) }
+class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
+    private val viewModel: SignUpViewModel by viewModels { ViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySignUpBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         binding.lifecycleOwner = this
-
-        setOnClickListener()
         setObservers()
+        setOnClickListener()
+        setAddTextChangedListener()
         setNavigation()
     }
 
-    private fun getUser(): User {
+    private fun getUser(): SignUpRequest {
         with(binding) {
-            val id = signUpIdEt.text.toString()
+            val email = signUpIdEt.text.toString()
             val password = signUpPasswordEt.text.toString()
-            val mbti = signUpMbtiEt.text.toString()
-            val part = signUpPartEt.text.toString()
-            val nickname = signUpNicknameEt.text.toString()
-            return User(id, password, mbti, part, nickname)
+            val name = signUpNameEt.text.toString()
+            return SignUpRequest(email, password, name)
         }
+    }
+
+    private fun setObservers() {
+        viewModel.signUpEvent.observe(
+            this, EventObserver { isSuccess ->
+                if (isSuccess) {
+                    Toast.makeText(this, R.string.success_sign_up, Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this, R.string.failure_sign_up, Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
+        viewModel.isPromising.observe(
+            this, EventObserver { isSuccess ->
+                binding.signUpSignUpBtn.isEnabled = isSuccess
+            }
+        )
     }
 
     private fun setOnClickListener() {
@@ -49,28 +61,23 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun setObservers() {
-        viewModel.signUpEvent.observe(
-            this, EventObserver { isPossible ->
-                if (isPossible) {
-                    startSignInActivity(viewModel.getUser()!!)
-                } else {
-                    Toast.makeText(this, R.string.failure_sign_up, Toast.LENGTH_SHORT).show()
-                }
+    private fun setAddTextChangedListener() {
+        with(binding) {
+            signUpIdEt.addTextChangedListener {
+                viewModel.setUserStatus(EMAIL, !signUpIdEt.text.isNullOrEmpty())
             }
-        )
+            signUpPasswordEt.addTextChangedListener {
+                viewModel.setUserStatus(PASSWORD, !signUpPasswordEt.text.isNullOrEmpty())
+            }
+            signUpNameEt.addTextChangedListener {
+                viewModel.setUserStatus(NAME, !signUpNameEt.text.isNullOrEmpty())
+            }
+        }
     }
 
     private fun setNavigation() {
         binding.signUpTb.setNavigationOnClickListener {
             finish()
         }
-    }
-
-    private fun startSignInActivity(user: User) {
-        val intent = Intent(this, SignInActivity::class.java)
-        intent.putExtra(USER, user)
-        setResult(RESULT_OK, intent)
-        finish()
     }
 }

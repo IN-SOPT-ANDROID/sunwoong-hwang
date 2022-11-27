@@ -3,26 +3,52 @@ package org.sopt.sample.presentation.signin.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.sopt.sample.data.model.User
-import org.sopt.sample.presentation.common.Event
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import org.sopt.sample.data.model.SignInRequest
+import org.sopt.sample.data.repository.AuthRepository
+import org.sopt.sample.util.EMAIL
+import org.sopt.sample.util.Event
+import org.sopt.sample.util.PASSWORD
 
-class SignInViewModel : ViewModel() {
+class SignInViewModel(private val authRepository: AuthRepository) : ViewModel() {
+    private val user: MutableMap<String, Boolean> = mutableMapOf(
+        EMAIL to false,
+        PASSWORD to false
+    )
 
-    private var user: User? = null
+    private val valid = setOf(
+        EMAIL, PASSWORD
+    )
 
     private val _signInEvent = MutableLiveData<Event<Boolean>>()
     val signInEvent: LiveData<Event<Boolean>>
         get() = _signInEvent
 
-    fun setUser(user: User) {
-        this.user = user
+    private val _isPromising = MutableLiveData<Event<Boolean>>()
+    val isPromising: LiveData<Event<Boolean>>
+        get() = _isPromising
+
+    fun setUserStatus(key: String, promising: Boolean) {
+        if (key in valid) {
+            user[key] = promising
+            checkUserStatus()
+        }
     }
 
-    fun getUser(): User? {
-        return user
+    private fun checkUserStatus() {
+        _isPromising.value = Event(user.all { it.value })
     }
 
-    fun signIn(id: String, password: String) {
-        _signInEvent.value = Event(user != null && id == user!!.id && password == user!!.password)
+    fun signIn(signInRequest: SignInRequest) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                authRepository.signIn(signInRequest)
+            }.onSuccess {
+                _signInEvent.value = Event(true)
+            }.onFailure {
+                _signInEvent.value = Event(false)
+            }
+        }
     }
 }

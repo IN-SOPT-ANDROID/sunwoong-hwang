@@ -21,5 +21,5 @@
     <string name="gallery">갤러리</string>
     <string name="search">검색</string>
     <string name="github_star">깃허브 즐겨찾기</string>
-    <string name="home_title">My Profile</string>
+    <string name="home_title">Profile</string>
 </resources>

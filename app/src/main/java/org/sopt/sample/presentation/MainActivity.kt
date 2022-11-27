@@ -1,61 +1,42 @@
 package org.sopt.sample.presentation
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import org.sopt.sample.R
 import org.sopt.sample.databinding.ActivityMainBinding
 import org.sopt.sample.presentation.gallery.view.GalleryFragment
 import org.sopt.sample.presentation.home.view.HomeFragment
 import org.sopt.sample.presentation.search.view.SearchFragment
+import org.sopt.sample.util.binding.BindingActivity
+import org.sopt.sample.util.extension.replace
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
-
+class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        setBottomNavigation()
+        setOnItemSelectedListener()
+        setOnItemReselectedListener()
+        startTargetFragment(R.id.bottom_navigation_home)
     }
 
-    private fun setBottomNavigation() {
-        startTargetFragment(HomeFragment())
-
+    private fun setOnItemSelectedListener() {
         binding.mainBnv.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.bottom_navigation_home -> {
-                    startTargetFragment(HomeFragment())
-                    return@setOnItemSelectedListener true
-                }
-
-                R.id.bottom_navigation_gallery -> {
-                    startTargetFragment(GalleryFragment())
-                    return@setOnItemSelectedListener true
-                }
-
-                R.id.bottom_navigation_search -> {
-                    startTargetFragment(SearchFragment())
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
+            startTargetFragment(item.itemId)
+            true
         }
+    }
 
+    private fun setOnItemReselectedListener() {
         binding.mainBnv.setOnItemReselectedListener { item ->
             when (item.itemId) {
-                R.id.bottom_navigation_home -> {
-                    (supportFragmentManager.findFragmentById(R.id.main_fcv) as HomeFragment).scrollToTop()
-                }
+                R.id.bottom_navigation_home -> (supportFragmentManager.findFragmentById(R.id.main_fcv) as HomeFragment).scrollToTop()
             }
         }
     }
 
-    private fun startTargetFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fcv, fragment)
-            .commitAllowingStateLoss()
+    private fun startTargetFragment(itemId: Int) = when (itemId) {
+        R.id.bottom_navigation_home -> replace<HomeFragment>(R.id.main_fcv)
+        R.id.bottom_navigation_gallery -> replace<GalleryFragment>(R.id.main_fcv)
+        R.id.bottom_navigation_search -> replace<SearchFragment>(R.id.main_fcv)
+        else -> throw IllegalArgumentException("Not fount error.")
     }
 }

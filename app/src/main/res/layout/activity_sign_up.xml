@@ -100,49 +100,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/sign_up_mbti_til"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:hint="@string/mbti"
-                    app:boxStrokeColor="@color/black"
-                    app:hintTextColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="@id/sign_up_end_gl"
-                    app:layout_constraintStart_toStartOf="@id/sign_up_start_gl"
-                    app:layout_constraintTop_toBottomOf="@id/sign_up_password_til">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sign_up_mbti_et"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/sign_up_part_til"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:hint="@string/part"
-                    app:boxStrokeColor="@color/black"
-                    app:hintTextColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="@id/sign_up_end_gl"
-                    app:layout_constraintStart_toStartOf="@id/sign_up_start_gl"
-                    app:layout_constraintTop_toBottomOf="@id/sign_up_mbti_til">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sign_up_part_et"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/sign_up_nickname_til"
+                    android:id="@+id/sign_up_name_til"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -152,10 +110,10 @@
                     app:hintTextColor="@color/black"
                     app:layout_constraintEnd_toEndOf="@id/sign_up_end_gl"
                     app:layout_constraintStart_toStartOf="@id/sign_up_start_gl"
-                    app:layout_constraintTop_toBottomOf="@id/sign_up_part_til">
+                    app:layout_constraintTop_toBottomOf="@id/sign_up_password_til">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sign_up_nickname_et"
+                        android:id="@+id/sign_up_name_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1" />
@@ -175,6 +133,8 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="12dp"
             android:background="@drawable/background_button"
+            android:backgroundTint="@color/selector_button_text_color"
+            android:enabled="false"
             android:text="@string/sign_up_check"
             app:layout_constraintEnd_toEndOf="@id/sign_up_end_gl"
             app:layout_constraintStart_toStartOf="@id/sign_up_start_gl" />
