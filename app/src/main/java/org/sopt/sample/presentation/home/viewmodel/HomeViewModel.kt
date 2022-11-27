@@ -22,10 +22,10 @@ class HomeViewModel(private val regresRepository: RegresRepository) : ViewModel(
         getProfileList()
     }
 
-    fun getProfileList(page: Int = 2) {
+    fun getProfileList() {
         viewModelScope.launch {
             kotlin.runCatching {
-                regresRepository.getProfileList(page)
+                regresRepository.getProfileList()
             }.onSuccess {
                 _profileList.value = it.profileList
             }.onFailure {

@@ -10,6 +10,6 @@ interface RegresService {
      */
     @GET("api/users")
     suspend fun getProfileList(
-        @Query("page") page: Int
+        @Query("page") page: Int = 2
     ): ProfileListResponse
 }

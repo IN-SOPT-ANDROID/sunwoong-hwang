@@ -4,6 +4,6 @@ import org.sopt.sample.data.model.ProfileListResponse
 import org.sopt.sample.data.source.RegresDataSource
 
 class RegresRepository(private val regresDataSource: RegresDataSource) {
-    suspend fun getProfileList(page: Int): ProfileListResponse =
-        regresDataSource.getProfileList(page)
+    suspend fun getProfileList(): ProfileListResponse =
+        regresDataSource.getProfileList()
 }
