@@ -20,21 +20,21 @@ class ViewModelFactory : ViewModelProvider.Factory {
             modelClass.isAssignableFrom(SignInViewModel::class.java) -> SignInViewModel(
                 AuthRepository(
                     AuthDataSourceImpl(
-                        ApiClient.getRetrofitForSopt().create(AuthService::class.java)
+                        ApiClient.soptRetrofit.create(AuthService::class.java)
                     )
                 )
             ) as T
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> SignUpViewModel(
                 AuthRepository(
                     AuthDataSourceImpl(
-                        ApiClient.getRetrofitForSopt().create(AuthService::class.java)
+                        ApiClient.soptRetrofit.create(AuthService::class.java)
                     )
                 )
             ) as T
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(
                 RegresRepository(
                     RegresDataSourceImpl(
-                        ApiClient.getRetrofitForRegres().create(RegresService::class.java)
+                        ApiClient.regresRetrofit.create(RegresService::class.java)
                     )
                 )
             ) as T

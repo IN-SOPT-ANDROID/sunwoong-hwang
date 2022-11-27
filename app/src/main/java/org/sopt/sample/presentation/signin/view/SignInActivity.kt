@@ -1,11 +1,9 @@
 package org.sopt.sample.presentation.signin.view
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import org.sopt.sample.R
 import org.sopt.sample.data.model.SignInRequest
@@ -52,25 +50,7 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
         )
         viewModel.isPromising.observe(
             this, EventObserver { isSuccess ->
-                if (isSuccess) {
-                    binding.signInSignInBtn.isEnabled = true
-                    binding.signInSignInBtn.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                this,
-                                R.color.black
-                            )
-                        )
-                } else {
-                    binding.signInSignInBtn.isEnabled = false
-                    binding.signInSignInBtn.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                this,
-                                R.color.gray
-                            )
-                        )
-                }
+                binding.signInSignInBtn.isEnabled = isSuccess
             }
         )
     }
@@ -89,18 +69,10 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
     private fun setAddTextChangedListener() {
         with(binding) {
             signInIdEt.addTextChangedListener {
-                if (signInIdEt.text.isNullOrEmpty()) {
-                    viewModel.setUserStatus(EMAIL, false)
-                } else {
-                    viewModel.setUserStatus(EMAIL, true)
-                }
+                viewModel.setUserStatus(EMAIL, !signInIdEt.text.isNullOrEmpty())
             }
             signInPasswordEt.addTextChangedListener {
-                if (signInPasswordEt.text.isNullOrEmpty()) {
-                    viewModel.setUserStatus(PASSWORD, false)
-                } else {
-                    viewModel.setUserStatus(PASSWORD, true)
-                }
+                viewModel.setUserStatus(PASSWORD, !signInPasswordEt.text.isNullOrEmpty())
             }
         }
     }
