@@ -45,11 +45,7 @@ class SignInViewModel(private val authRepository: AuthRepository) : ViewModel() 
             kotlin.runCatching {
                 authRepository.signIn(signInRequest)
             }.onSuccess {
-                if (it.status == 200) {
-                    _signInEvent.value = Event(true)
-                } else {
-                    _signInEvent.value = Event(false)
-                }
+                _signInEvent.value = Event(true)
             }.onFailure {
                 _signInEvent.value = Event(false)
             }

@@ -47,11 +47,7 @@ class SignUpViewModel(private val authRepository: AuthRepository) : ViewModel() 
             kotlin.runCatching {
                 authRepository.signUp(signUpRequest)
             }.onSuccess {
-                if (it.status == 201) {
-                    _signUpEvent.value = Event(true)
-                } else {
-                    _signUpEvent.value = Event(false)
-                }
+                _signUpEvent.value = Event(true)
             }.onFailure {
                 _signUpEvent.value = Event(false)
             }
