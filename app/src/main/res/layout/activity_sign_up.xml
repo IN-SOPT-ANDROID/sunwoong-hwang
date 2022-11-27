@@ -133,7 +133,7 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="12dp"
             android:background="@drawable/background_button"
-            android:backgroundTint="@color/gray"
+            android:backgroundTint="@color/selector_button_text_color"
             android:enabled="false"
             android:text="@string/sign_up_check"
             app:layout_constraintEnd_toEndOf="@id/sign_up_end_gl"
