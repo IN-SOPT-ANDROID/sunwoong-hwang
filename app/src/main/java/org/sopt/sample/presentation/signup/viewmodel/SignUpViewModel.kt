@@ -1,45 +1,50 @@
 package org.sopt.sample.presentation.signup.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import org.sopt.sample.data.model.SignUpRequest
 import org.sopt.sample.data.repository.AuthRepository
-import org.sopt.sample.util.EMAIL
 import org.sopt.sample.util.Event
-import org.sopt.sample.util.NAME
-import org.sopt.sample.util.PASSWORD
+import org.sopt.sample.util.extension.addSourceList
 
 class SignUpViewModel(private val authRepository: AuthRepository) : ViewModel() {
-    private val user: MutableMap<String, Boolean> = mutableMapOf(
-        EMAIL to false,
-        PASSWORD to false,
-        NAME to false
-    )
+    private val emailRegex =
+        Regex("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$")
+    private val passwordRegex =
+        Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@\$!%*#?&])[A-Za-z\\d@\$!%*#?&]{6,12}\$")
 
-    private val valid = setOf(
-        EMAIL, PASSWORD, NAME
-    )
+    val email = MutableLiveData<String>()
+    val isValidEmail: LiveData<Boolean> = Transformations.map(email) {
+        checkEmailPattern(it)
+    }
+
+    val password = MutableLiveData<String>()
+    val isValidPassword: LiveData<Boolean> = Transformations.map(password) {
+        checkPasswordPattern(it)
+    }
+
+    val name = MutableLiveData<String>()
+    private val isValidName: LiveData<Boolean> = Transformations.map(name) {
+        !it.isNullOrEmpty()
+    }
+
+    val isValid = MediatorLiveData<Boolean>().apply {
+        addSourceList(isValidEmail, isValidPassword, isValidName) {
+            checkSignUp()
+        }
+    }
 
     private val _signUpEvent = MutableLiveData<Event<Boolean>>()
     val signUpEvent: LiveData<Event<Boolean>>
         get() = _signUpEvent
 
-    private val _isPromising = MutableLiveData<Event<Boolean>>()
-    val isPromising: LiveData<Event<Boolean>>
-        get() = _isPromising
+    private fun checkEmailPattern(pattern: String = ""): Boolean = emailRegex.matches(pattern)
 
-    fun setUserStatus(key: String, promising: Boolean) {
-        if (key in valid) {
-            user[key] = promising
-            checkUserStatus()
-        }
-    }
+    private fun checkPasswordPattern(pattern: String = ""): Boolean = passwordRegex.matches(pattern)
 
-    private fun checkUserStatus() {
-        _isPromising.value = Event(user.all { it.value })
+    private fun checkSignUp(): Boolean {
+        if (isValidEmail.value == null || isValidPassword.value == null || isValidName.value == null) return false
+        return isValidEmail.value!! && isValidPassword.value!! && isValidName.value!!
     }
 
     fun signUp(signUpRequest: SignUpRequest) {
