@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.widget.addTextChangedListener
 import org.sopt.sample.R
 import org.sopt.sample.data.model.SignInRequest
 import org.sopt.sample.databinding.ActivitySignInBinding
@@ -12,9 +11,7 @@ import org.sopt.sample.presentation.MainActivity
 import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.signin.viewmodel.SignInViewModel
 import org.sopt.sample.presentation.signup.view.SignUpActivity
-import org.sopt.sample.util.EMAIL
 import org.sopt.sample.util.EventObserver
-import org.sopt.sample.util.PASSWORD
 import org.sopt.sample.util.binding.BindingActivity
 
 class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
@@ -23,10 +20,10 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
         setObservers()
         setOnClickListener()
-        setAddTextChangedListener()
     }
 
     private fun getUser(): SignInRequest {
@@ -48,31 +45,27 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
                 }
             }
         )
-        viewModel.isPromising.observe(
-            this, EventObserver { isSuccess ->
-                binding.signInSignInBtn.isEnabled = isSuccess
-            }
-        )
+        viewModel.isValidEmail.observe(
+            this
+        ) { isValid ->
+            binding.signInIdTil.error =
+                if (!isValid) resources.getString(R.string.invalid_email) else null
+        }
+        viewModel.isValidPassword.observe(
+            this
+        ) { isValid ->
+            binding.signInPasswordTil.error =
+                if (!isValid) resources.getString(R.string.invalid_password) else null
+        }
     }
 
     private fun setOnClickListener() {
         with(binding) {
             signInSignInBtn.setOnClickListener {
-                viewModel.signIn(getUser())
+                this@SignInActivity.viewModel.signIn(getUser())
             }
             signInSignUpBtn.setOnClickListener {
                 startSignUpActivity()
-            }
-        }
-    }
-
-    private fun setAddTextChangedListener() {
-        with(binding) {
-            signInIdEt.addTextChangedListener {
-                viewModel.setUserStatus(EMAIL, !signInIdEt.text.isNullOrEmpty())
-            }
-            signInPasswordEt.addTextChangedListener {
-                viewModel.setUserStatus(PASSWORD, !signInPasswordEt.text.isNullOrEmpty())
             }
         }
     }
