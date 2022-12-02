@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.sopt.sample.data.model.Profile
-import org.sopt.sample.data.repository.RegresRepository
+import org.sopt.sample.domain.repository.RegresRepository
 import org.sopt.sample.util.Event
 
 class HomeViewModel(private val regresRepository: RegresRepository) : ViewModel() {
@@ -24,13 +24,13 @@ class HomeViewModel(private val regresRepository: RegresRepository) : ViewModel(
 
     fun getProfileList() {
         viewModelScope.launch {
-            kotlin.runCatching {
+            runCatching {
                 regresRepository.getProfileList()
-            }.onSuccess {
+            }.fold({
                 _profileList.value = it.profileList
-            }.onFailure {
+            }, {
                 _profileListEvent.value = Event(false)
-            }
+            })
         }
     }
 }
