@@ -18,6 +18,10 @@ class HomeViewModel(private val regresRepository: RegresRepository) : ViewModel(
     val profileListEvent: LiveData<Event<Boolean>>
         get() = _profileListEvent
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     init {
         getProfileList()
     }
@@ -25,8 +29,10 @@ class HomeViewModel(private val regresRepository: RegresRepository) : ViewModel(
     fun getProfileList() {
         viewModelScope.launch {
             runCatching {
+                _isLoading.value = true
                 regresRepository.getProfileList()
             }.fold({
+                _isLoading.value = false
                 _profileList.value = it.profileList
             }, {
                 _profileListEvent.value = Event(false)
