@@ -8,6 +8,7 @@ import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.signup.viewmodel.SignUpViewModel
 import org.sopt.sample.util.EventObserver
 import org.sopt.sample.util.binding.BindingActivity
+import org.sopt.sample.util.extension.hideKeyboard
 import org.sopt.sample.util.extension.showToast
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
@@ -49,8 +50,13 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     }
 
     private fun setOnClickListener() {
-        binding.signUpSignUpBtn.setOnClickListener {
-            viewModel.signUp()
+        with(binding) {
+            signUpSignUpBtn.setOnClickListener {
+                this@SignUpActivity.viewModel.signUp()
+            }
+            signUpCl.setOnClickListener {
+                this@SignUpActivity.hideKeyboard()
+            }
         }
     }
 

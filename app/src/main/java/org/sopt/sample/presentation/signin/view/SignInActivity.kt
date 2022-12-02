@@ -11,6 +11,7 @@ import org.sopt.sample.presentation.signin.viewmodel.SignInViewModel
 import org.sopt.sample.presentation.signup.view.SignUpActivity
 import org.sopt.sample.util.EventObserver
 import org.sopt.sample.util.binding.BindingActivity
+import org.sopt.sample.util.extension.hideKeyboard
 import org.sopt.sample.util.extension.showToast
 
 class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
@@ -57,6 +58,9 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
             }
             signInSignUpBtn.setOnClickListener {
                 startSignUpActivity()
+            }
+            signInCl.setOnClickListener {
+                this@SignInActivity.hideKeyboard()
             }
         }
     }
