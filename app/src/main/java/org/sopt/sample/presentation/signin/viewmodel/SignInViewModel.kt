@@ -3,15 +3,13 @@ package org.sopt.sample.presentation.signin.viewmodel
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import org.sopt.sample.data.model.SignInRequest
-import org.sopt.sample.data.repository.AuthRepository
+import org.sopt.sample.domain.repository.AuthRepository
 import org.sopt.sample.util.Event
 import org.sopt.sample.util.extension.addSourceList
 
 class SignInViewModel(private val authRepository: AuthRepository) : ViewModel() {
-    private val emailRegex =
-        Regex("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$")
-    private val passwordRegex =
-        Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@\$!%*#?&])[A-Za-z\\d@\$!%*#?&]{6,12}\$")
+    private val emailRegex = Regex(EMAIL_REGEX)
+    private val passwordRegex = Regex(PASSWORD_REGEX)
 
     val email = MutableLiveData<String>()
     val isValidEmail: LiveData<Boolean> = Transformations.map(email) {
@@ -42,15 +40,22 @@ class SignInViewModel(private val authRepository: AuthRepository) : ViewModel() 
         return isValidEmail.value!! && isValidPassword.value!!
     }
 
-    fun signIn(signInRequest: SignInRequest) {
+    fun signIn() {
         viewModelScope.launch {
-            kotlin.runCatching {
-                authRepository.signIn(signInRequest)
-            }.onSuccess {
+            runCatching {
+                authRepository.signIn(SignInRequest(email.value!!, password.value!!))
+            }.fold({
                 _signInEvent.value = Event(true)
-            }.onFailure {
+            }, {
                 _signInEvent.value = Event(false)
-            }
+            })
         }
+    }
+
+    companion object {
+        private const val EMAIL_REGEX =
+            "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$"
+        private const val PASSWORD_REGEX =
+            "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@\$!%*#?&])[A-Za-z\\d@\$!%*#?&]{6,12}\$"
     }
 }
