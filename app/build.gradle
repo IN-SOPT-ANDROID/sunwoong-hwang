@@ -71,7 +71,10 @@ dependencies {
     // Gson
     implementation "com.google.code.gson:gson:$gson_version"
 
-    // Kotlinx - Serialization
+    // Kotlinx Serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinx_serialization_converter_version"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
 }
