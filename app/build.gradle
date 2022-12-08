@@ -5,6 +5,9 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.10'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     namespace 'org.sopt.sample'
     compileSdk 33
@@ -17,6 +20,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "SOPT_BASE_URL", properties["sopt.base.url"]
+        buildConfigField "String", "REGRES_BASE_URL", properties["regres.base.url"]
     }
 
     buildTypes {
@@ -71,7 +76,10 @@ dependencies {
     // Gson
     implementation "com.google.code.gson:gson:$gson_version"
 
-    // Kotlinx - Serialization
+    // Kotlinx Serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlinx_serialization_converter_version"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
 }

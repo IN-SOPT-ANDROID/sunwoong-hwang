@@ -5,37 +5,37 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SignInRequest(
-    @SerialName("email") val email: String,
-    @SerialName("password") val password: String
+    val email: String,
+    val password: String
 )
 
 @Serializable
 data class SignInResponse(
-    @SerialName("status") val status: Int,
-    @SerialName("message") val message: String,
-    @SerialName("result") val result: AuthResult
+    val status: Int,
+    val message: String,
+    val result: AuthResult
 )
 
 @Serializable
 data class SignUpRequest(
-    @SerialName("email") val email: String,
-    @SerialName("password") val password: String,
-    @SerialName("name") val name: String
+    val email: String,
+    val password: String,
+    val name: String
 )
 
 @Serializable
 data class SignUpResponse(
-    @SerialName("status") val status: Int,
-    @SerialName("message") val message: String,
+    val status: Int,
+    val message: String,
     @SerialName("newUser") val result: AuthResult
 )
 
 @Serializable
 data class AuthResult(
-    @SerialName("id") val id: Int,
-    @SerialName("name") val name: String,
-    @SerialName("profileImage") val profileImage: String?,
-    @SerialName("bio") val bio: String?,
-    @SerialName("email") val email: String,
-    @SerialName("password") val password: String
+    val id: Int,
+    val name: String,
+    val profileImage: String?,
+    val bio: String?,
+    val email: String,
+    val password: String
 )

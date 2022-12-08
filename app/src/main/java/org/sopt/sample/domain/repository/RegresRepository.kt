@@ -1,7 +1,7 @@
-package org.sopt.sample.data.source
+package org.sopt.sample.domain.repository
 
 import org.sopt.sample.data.model.ProfileListResponse
 
-interface RegresDataSource {
+interface RegresRepository {
     suspend fun getProfileList(): ProfileListResponse
 }

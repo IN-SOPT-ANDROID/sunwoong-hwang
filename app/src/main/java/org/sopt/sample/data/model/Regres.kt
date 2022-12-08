@@ -5,25 +5,25 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ProfileListResponse(
-    @SerialName("page") val page: Int,
+    val page: Int,
     @SerialName("per_page") val perPage: Int,
-    @SerialName("total") val total: Int,
+    val total: Int,
     @SerialName("total_pages") val totalPages: Int,
     @SerialName("data") val profileList: List<Profile>,
-    @SerialName("support") val support: Support
+    val support: Support
 )
 
 @Serializable
 data class Profile(
-    @SerialName("id") val id: Int,
-    @SerialName("email") val email: String,
+    val id: Int,
+    val email: String,
     @SerialName("first_name") val firstName: String,
     @SerialName("last_name") val lastName: String,
-    @SerialName("avatar") val avatar: String
+    val avatar: String
 )
 
 @Serializable
 data class Support(
-    @SerialName("url") val url: String,
-    @SerialName("text") val text: String
+    val url: String,
+    val text: String
 )

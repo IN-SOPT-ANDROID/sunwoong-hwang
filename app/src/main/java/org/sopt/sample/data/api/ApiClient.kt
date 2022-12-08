@@ -6,12 +6,11 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.sopt.sample.BuildConfig.REGRES_BASE_URL
+import org.sopt.sample.BuildConfig.SOPT_BASE_URL
 import retrofit2.Retrofit
 
 object ApiClient {
-    private const val SOPT_BASE_URL = "http://3.39.169.52:3000/"
-    private const val REGRES_BASE_URL = "https://reqres.in/"
-
     private val client by lazy {
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {

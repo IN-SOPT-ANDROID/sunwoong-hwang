@@ -37,6 +37,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         R.id.bottom_navigation_home -> replace<HomeFragment>(R.id.main_fcv)
         R.id.bottom_navigation_gallery -> replace<GalleryFragment>(R.id.main_fcv)
         R.id.bottom_navigation_search -> replace<SearchFragment>(R.id.main_fcv)
-        else -> throw IllegalArgumentException("Not fount error.")
+        else -> throw IllegalArgumentException("Not found error.")
     }
 }

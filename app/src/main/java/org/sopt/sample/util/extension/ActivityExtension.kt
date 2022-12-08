@@ -1,5 +1,6 @@
 package org.sopt.sample.util.extension
 
+import android.view.View
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -11,4 +12,8 @@ inline fun <reified T : Fragment> AppCompatActivity.replace(@IdRes frameId: Int)
         replace<T>(frameId)
         setReorderingAllowed(true)
     }
+}
+
+fun AppCompatActivity.hideKeyboard() {
+    hideKeyboard(currentFocus ?: View(this))
 }

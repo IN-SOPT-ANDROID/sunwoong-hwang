@@ -1,54 +1,61 @@
 package org.sopt.sample.presentation.signin.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import org.sopt.sample.data.model.SignInRequest
-import org.sopt.sample.data.repository.AuthRepository
-import org.sopt.sample.util.EMAIL
+import org.sopt.sample.domain.repository.AuthRepository
 import org.sopt.sample.util.Event
-import org.sopt.sample.util.PASSWORD
+import org.sopt.sample.util.extension.addSourceList
 
 class SignInViewModel(private val authRepository: AuthRepository) : ViewModel() {
-    private val user: MutableMap<String, Boolean> = mutableMapOf(
-        EMAIL to false,
-        PASSWORD to false
-    )
+    private val emailRegex = Regex(EMAIL_REGEX)
+    private val passwordRegex = Regex(PASSWORD_REGEX)
 
-    private val valid = setOf(
-        EMAIL, PASSWORD
-    )
+    val email = MutableLiveData<String>()
+    val isValidEmail: LiveData<Boolean> = Transformations.map(email) {
+        checkEmailPattern(it)
+    }
+
+    val password = MutableLiveData<String>()
+    val isValidPassword: LiveData<Boolean> = Transformations.map(password) {
+        checkPasswordPattern(it)
+    }
+
+    val isValid = MediatorLiveData<Boolean>().apply {
+        addSourceList(isValidEmail, isValidPassword) {
+            checkSignIn()
+        }
+    }
 
     private val _signInEvent = MutableLiveData<Event<Boolean>>()
     val signInEvent: LiveData<Event<Boolean>>
         get() = _signInEvent
 
-    private val _isPromising = MutableLiveData<Event<Boolean>>()
-    val isPromising: LiveData<Event<Boolean>>
-        get() = _isPromising
+    private fun checkEmailPattern(pattern: String = ""): Boolean = emailRegex.matches(pattern)
 
-    fun setUserStatus(key: String, promising: Boolean) {
-        if (key in valid) {
-            user[key] = promising
-            checkUserStatus()
-        }
+    private fun checkPasswordPattern(pattern: String = ""): Boolean = passwordRegex.matches(pattern)
+
+    private fun checkSignIn(): Boolean {
+        if (isValidEmail.value == null || isValidPassword.value == null) return false
+        return isValidEmail.value!! && isValidPassword.value!!
     }
 
-    private fun checkUserStatus() {
-        _isPromising.value = Event(user.all { it.value })
-    }
-
-    fun signIn(signInRequest: SignInRequest) {
+    fun signIn() {
         viewModelScope.launch {
-            kotlin.runCatching {
-                authRepository.signIn(signInRequest)
-            }.onSuccess {
+            runCatching {
+                authRepository.signIn(SignInRequest(email.value!!, password.value!!))
+            }.fold({
                 _signInEvent.value = Event(true)
-            }.onFailure {
+            }, {
                 _signInEvent.value = Event(false)
-            }
+            })
         }
+    }
+
+    companion object {
+        private const val EMAIL_REGEX =
+            "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$"
+        private const val PASSWORD_REGEX =
+            "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@\$!%*#?&])[A-Za-z\\d@\$!%*#?&]{6,12}\$"
     }
 }
