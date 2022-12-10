@@ -12,23 +12,15 @@ import org.sopt.sample.data.repository.RegresRepositoryImpl
 import org.sopt.sample.data.source.remote.AuthDataSource
 import org.sopt.sample.data.source.remote.MusicDataSource
 import org.sopt.sample.data.source.remote.RegresDataSource
+import org.sopt.sample.presentation.auth.viewmodel.AuthViewModel
 import org.sopt.sample.presentation.home.viewmodel.HomeViewModel
 import org.sopt.sample.presentation.music.viewmodel.MusicViewModel
-import org.sopt.sample.presentation.signin.viewmodel.SignInViewModel
-import org.sopt.sample.presentation.signup.viewmodel.SignUpViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(SignInViewModel::class.java) -> SignInViewModel(
-                AuthRepositoryImpl(
-                    AuthDataSource(
-                        ApiClient.soptRetrofit.create(AuthService::class.java)
-                    )
-                )
-            ) as T
-            modelClass.isAssignableFrom(SignUpViewModel::class.java) -> SignUpViewModel(
+            modelClass.isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel(
                 AuthRepositoryImpl(
                     AuthDataSource(
                         ApiClient.soptRetrofit.create(AuthService::class.java)
