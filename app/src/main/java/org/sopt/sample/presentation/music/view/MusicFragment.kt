@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import org.sopt.sample.R
 import org.sopt.sample.databinding.FragmentMusicBinding
 import org.sopt.sample.presentation.common.ViewModelFactory
-import org.sopt.sample.presentation.music.MusicAdapter
+import org.sopt.sample.presentation.music.adapter.MusicAdapter
 import org.sopt.sample.presentation.music.viewmodel.MusicViewModel
 import org.sopt.sample.util.EventObserver
 import org.sopt.sample.util.binding.BindingFragment
@@ -41,20 +41,22 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
     }
 
     private fun setObservers() {
-        viewModel.registerMusicListEvent.observe(
-            viewLifecycleOwner, EventObserver { isSuccess ->
-                if (!isSuccess) {
-                    getMusicList()
+        with(viewModel) {
+            registerMusicListEvent.observe(
+                viewLifecycleOwner, EventObserver { isSuccess ->
+                    if (!isSuccess) {
+                        getMusicList()
+                    }
                 }
-            }
-        )
-        viewModel.registerMusicOnClickEvent.observe(
-            viewLifecycleOwner, EventObserver { isClick ->
-                if (isClick) {
-                    startRegisterMusicFragment()
+            )
+            registerMusicOnClickEvent.observe(
+                viewLifecycleOwner, EventObserver { isClick ->
+                    if (isClick) {
+                        startRegisterMusicFragment()
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
     private fun startRegisterMusicFragment() {

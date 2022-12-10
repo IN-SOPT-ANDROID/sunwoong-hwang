@@ -1,4 +1,4 @@
-package org.sopt.sample.presentation.music
+package org.sopt.sample.presentation.music.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
