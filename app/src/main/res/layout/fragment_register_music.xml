@@ -18,7 +18,7 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/sign_up_tb"
+                android:id="@+id/register_music_tb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -36,15 +36,18 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/register_music_cl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/register_music_cv"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="130dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="100dp"
                 app:cardCornerRadius="7dp"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -53,8 +56,7 @@
                     android:id="@+id/register_music_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_add_music" />
+                    android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>
 
@@ -116,6 +118,7 @@
             android:layout_margin="16dp"
             android:backgroundTint="@color/white"
             android:enabled="@{viewModel.isValid()}"
+            android:onClick="@{() -> viewModel.registerMusic()}"
             app:borderWidth="0dp"
             app:srcCompat="@drawable/ic_add" />
 
