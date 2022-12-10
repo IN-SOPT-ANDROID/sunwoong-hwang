@@ -13,11 +13,9 @@ class HomeViewModel(private val regresRepository: RegresRepository) : ViewModel(
     private val _profileList = MutableLiveData<List<Profile>>()
     val profileList: LiveData<List<Profile>>
         get() = _profileList
-
     private val _profileListEvent = MutableLiveData<Event<Boolean>>()
     val profileListEvent: LiveData<Event<Boolean>>
         get() = _profileListEvent
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
         get() = _isLoading
