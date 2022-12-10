@@ -24,15 +24,9 @@ class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel()
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
         get() = _isLoading
-    private val _registerMusicListEvent = MutableLiveData<Event<Boolean>>()
-    val registerMusicListEvent: LiveData<Event<Boolean>>
-        get() = _registerMusicListEvent
-    private val _registerMusicOnClickEvent = MutableLiveData<Event<Boolean>>()
-    val registerMusicOnClickEvent: LiveData<Event<Boolean>>
-        get() = _registerMusicOnClickEvent
-    private val _registerMusicEvent = MutableLiveData<Event<Boolean>>()
-    val registerMusicEvent: LiveData<Event<Boolean>>
-        get() = _registerMusicEvent
+    private val _musicEvent = MutableLiveData<Event<Boolean>>()
+    val musicEvent: LiveData<Event<Boolean>>
+        get() = _musicEvent
 
     private fun checkRegisterMusic(): Boolean {
         if (image.value == null || title.value == null || singer.value == null) return false
@@ -43,10 +37,6 @@ class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel()
         this.image.value = image
     }
 
-    fun startRegisterMusic() {
-        _registerMusicOnClickEvent.value = Event(true)
-    }
-
     fun getMusicList() {
         viewModelScope.launch {
             runCatching {
@@ -55,9 +45,9 @@ class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel()
             }.fold({
                 _musicList.value = it.result
                 _isLoading.value = false
-                _registerMusicListEvent.value = Event(true)
+                _musicEvent.value = Event(true)
             }, {
-                _registerMusicListEvent.value = Event(false)
+                _musicEvent.value = Event(false)
             })
         }
     }
@@ -70,9 +60,9 @@ class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel()
                     MusicRequest(title.value.toString(), singer.value.toString()).toJsonObject()
                 )
             }.fold({
-                _registerMusicEvent.value = Event(true)
+                _musicEvent.value = Event(true)
             }, {
-                _registerMusicEvent.value = Event(false)
+                _musicEvent.value = Event(false)
             })
         }
     }

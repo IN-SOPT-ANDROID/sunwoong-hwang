@@ -23,6 +23,7 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
         getMusicList()
         setAdapter()
         setObservers()
+        setOnClickListener()
     }
 
     private fun getMusicList() {
@@ -41,21 +42,18 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
     }
 
     private fun setObservers() {
-        with(viewModel) {
-            registerMusicListEvent.observe(
-                viewLifecycleOwner, EventObserver { isSuccess ->
-                    if (!isSuccess) {
-                        getMusicList()
-                    }
+        viewModel.musicEvent.observe(
+            viewLifecycleOwner, EventObserver { isSuccess ->
+                if (!isSuccess) {
+                    getMusicList()
                 }
-            )
-            registerMusicOnClickEvent.observe(
-                viewLifecycleOwner, EventObserver { isClick ->
-                    if (isClick) {
-                        startRegisterMusicFragment()
-                    }
-                }
-            )
+            }
+        )
+    }
+
+    private fun setOnClickListener() {
+        binding.musicFab.setOnClickListener {
+            startRegisterMusicFragment()
         }
     }
 
