@@ -15,6 +15,7 @@ import org.sopt.sample.presentation.music.viewmodel.MusicViewModel
 import org.sopt.sample.util.ContentUriRequestBody
 import org.sopt.sample.util.EventObserver
 import org.sopt.sample.util.binding.BindingFragment
+import org.sopt.sample.util.extension.hideKeyboard
 
 class RegisterMusicFragment :
     BindingFragment<FragmentRegisterMusicBinding>(R.layout.fragment_register_music) {
@@ -35,10 +36,21 @@ class RegisterMusicFragment :
         setPermission()
         setOnClickListener()
         setObservers()
+        setNavigation()
     }
 
     private fun setPermission() {
         permissionLauncher.launch(READ_EXTERNAL_STORAGE)
+    }
+
+    private fun setObservers() {
+        viewModel.musicEvent.observe(
+            viewLifecycleOwner, EventObserver { isSuccess ->
+                if (isSuccess) {
+                    startMusicFragment()
+                }
+            }
+        )
     }
 
     private fun setOnClickListener() {
@@ -46,20 +58,16 @@ class RegisterMusicFragment :
             registerMusicIv.setOnClickListener {
                 imageLauncher.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
             }
-            registerMusicFab.setOnClickListener {
-                this@RegisterMusicFragment.viewModel.registerMusic()
+            registerMusicCl.setOnClickListener {
+                requireContext().hideKeyboard(requireView())
             }
         }
     }
 
-    private fun setObservers() {
-        viewModel.registerMusicEvent.observe(
-            viewLifecycleOwner, EventObserver { isSuccess ->
-                if (isSuccess) {
-                    startMusicFragment()
-                }
-            }
-        )
+    private fun setNavigation() {
+        binding.registerMusicTb.setNavigationOnClickListener {
+            startMusicFragment()
+        }
     }
 
     private fun startMusicFragment() {
