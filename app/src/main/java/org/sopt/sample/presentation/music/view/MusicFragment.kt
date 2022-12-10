@@ -1,12 +1,12 @@
-package org.sopt.sample.presentation.gallery.view
+package org.sopt.sample.presentation.music.view
 
 import android.os.Bundle
 import android.view.View
 import org.sopt.sample.R
-import org.sopt.sample.databinding.FragmentGalleryBinding
+import org.sopt.sample.databinding.FragmentMusicBinding
 import org.sopt.sample.util.binding.BindingFragment
 
-class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragment_gallery) {
+class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_music) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
