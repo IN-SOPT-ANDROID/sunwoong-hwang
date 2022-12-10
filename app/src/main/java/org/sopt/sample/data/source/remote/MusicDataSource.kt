@@ -7,4 +7,6 @@ import org.sopt.sample.data.api.MusicService
 class MusicDataSource(private val musicService: MusicService) {
     suspend fun registerMusic(image: MultipartBody.Part, contents: RequestBody) =
         musicService.registerMusic(image, contents)
+
+    suspend fun getMusicList() = musicService.getMusicList()
 }
