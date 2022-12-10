@@ -24,7 +24,7 @@
             android:name=".presentation.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.signin.view.SignInActivity"
+            android:name=".presentation.auth.view.SignInActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.signup.view.SignUpActivity"
+            android:name=".presentation.auth.view.SignUpActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
