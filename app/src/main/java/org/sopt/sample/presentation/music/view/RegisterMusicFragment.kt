@@ -45,7 +45,7 @@ class RegisterMusicFragment :
                 imageLauncher.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
             }
             registerMusicFab.setOnClickListener {
-                viewModel.registerMusic()
+                this@RegisterMusicFragment.viewModel.registerMusic()
             }
         }
     }
