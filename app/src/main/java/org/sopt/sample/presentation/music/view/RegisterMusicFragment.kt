@@ -20,8 +20,10 @@ class RegisterMusicFragment :
     BindingFragment<FragmentRegisterMusicBinding>(R.layout.fragment_register_music) {
     private val viewModel: MusicViewModel by viewModels { ViewModelFactory() }
     private val imageLauncher = registerForActivityResult(PickVisualMedia()) { uri ->
-        binding.registerMusicIv.load(uri)
-        viewModel.setImageUriToPart(ContentUriRequestBody(requireContext(), uri!!).toFormData())
+        if (uri != null) {
+            binding.registerMusicIv.load(uri)
+            viewModel.setImageUriToPart(ContentUriRequestBody(requireContext(), uri).toFormData())
+        }
     }
     private val permissionLauncher = registerForActivityResult(RequestPermission()) {}
 
