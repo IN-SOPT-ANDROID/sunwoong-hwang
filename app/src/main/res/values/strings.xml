@@ -24,4 +24,8 @@
     <string name="home_title">Profile</string>
     <string name="invalid_email">영문자, 숫자를 포함한 6 ~ 10자 및 이메일 양식을 준수해 주세요.</string>
     <string name="invalid_password">영문자, 숫자, 특수문자를 포함한 6 ~ 12자 입니다.</string>
+    <string name="music_title">Music</string>
+    <string name="register_music_title">Register Music</string>
+    <string name="title">title:</string>
+    <string name="singer">singer:</string>
 </resources>
