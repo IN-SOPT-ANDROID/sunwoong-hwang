@@ -6,8 +6,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.sopt.sample.BuildConfig.REGRES_BASE_URL
-import org.sopt.sample.BuildConfig.SOPT_BASE_URL
+import org.sopt.sample.BuildConfig.*
 import retrofit2.Retrofit
 
 object ApiClient {
@@ -32,6 +31,15 @@ object ApiClient {
     val regresRetrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(REGRES_BASE_URL)
+            .client(client)
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .build()
+    }
+
+    @OptIn(ExperimentalSerializationApi::class)
+    val musicRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(MUSIC_BASE_URL)
             .client(client)
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .build()
