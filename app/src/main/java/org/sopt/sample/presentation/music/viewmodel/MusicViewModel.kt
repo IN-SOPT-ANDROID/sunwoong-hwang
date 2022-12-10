@@ -13,7 +13,6 @@ class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel()
     private val _musicList = MutableLiveData<List<Music>>()
     val musicList: LiveData<List<Music>>
         get() = _musicList
-
     private val image = MutableLiveData<MultipartBody.Part>()
     val title = MutableLiveData<String>()
     val singer = MutableLiveData<String>()
@@ -22,21 +21,22 @@ class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel()
             checkRegisterMusic()
         }
     }
-
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
     private val _registerMusicListEvent = MutableLiveData<Event<Boolean>>()
     val registerMusicListEvent: LiveData<Event<Boolean>>
         get() = _registerMusicListEvent
-
     private val _registerMusicOnClickEvent = MutableLiveData<Event<Boolean>>()
     val registerMusicOnClickEvent: LiveData<Event<Boolean>>
         get() = _registerMusicOnClickEvent
-
     private val _registerMusicEvent = MutableLiveData<Event<Boolean>>()
     val registerMusicEvent: LiveData<Event<Boolean>>
         get() = _registerMusicEvent
 
     private fun checkRegisterMusic(): Boolean {
-        return image.value != null && title.value != null && singer.value != null
+        if (image.value == null || title.value == null || singer.value == null) return false
+        return title.value!!.isNotEmpty() && singer.value!!.isNotEmpty()
     }
 
     fun setImageUriToPart(image: MultipartBody.Part) {
@@ -50,9 +50,11 @@ class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel()
     fun getMusicList() {
         viewModelScope.launch {
             runCatching {
+                _isLoading.value = true
                 musicRepository.getMusicList()
             }.fold({
                 _musicList.value = it.result
+                _isLoading.value = false
                 _registerMusicListEvent.value = Event(true)
             }, {
                 _registerMusicListEvent.value = Event(false)
