@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="music"
+            type="org.sopt.sample.data.model.Music" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,10 +23,10 @@
 
             <ImageView
                 android:id="@+id/item_music_iv"
+                imageUrl="@{music.image}"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:scaleType="fitCenter"
-                android:src="@color/gray"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +48,7 @@
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="@{music.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/item_music_iv"
@@ -60,6 +64,7 @@
                 android:layout_marginBottom="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="@{music.singer}"
                 android:textColor="@color/gray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

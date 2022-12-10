@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="org.sopt.sample.presentation.music.viewmodel.MusicViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -41,6 +44,7 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:backgroundTint="@color/white"
+            android:onClick="@{() -> viewModel.startRegisterMusic()}"
             app:borderWidth="0dp"
             app:srcCompat="@drawable/ic_add" />
 
