@@ -27,6 +27,14 @@ data class MusicResponse(
 )
 
 @Serializable
+data class MusicListResponse(
+    val statusCode: Int,
+    val success: Boolean,
+    val message: String,
+    @SerialName("data") val result: List<Music>
+)
+
+@Serializable
 data class Music(
     val id: Int,
     val image: String,
