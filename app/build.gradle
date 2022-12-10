@@ -22,6 +22,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "SOPT_BASE_URL", properties["sopt.base.url"]
         buildConfigField "String", "REGRES_BASE_URL", properties["regres.base.url"]
+        buildConfigField "String", "MUSIC_BASE_URL", properties["music.base.url"]
     }
 
     buildTypes {
@@ -82,4 +83,7 @@ dependencies {
 
     // Lottie
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+    // Coil
+    implementation 'io.coil-kt:coil:2.2.2'
 }
