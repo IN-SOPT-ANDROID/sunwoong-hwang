@@ -37,6 +37,16 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             tools:listitem="@layout/item_music" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/music_lav"
+            visibility="@{viewModel.isLoading}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/music_fab"
             android:layout_width="wrap_content"
