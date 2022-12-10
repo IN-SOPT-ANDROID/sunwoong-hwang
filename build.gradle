@@ -11,6 +11,7 @@ buildscript {
         kotlinx_serialization_version = '1.4.1'
         kotlinx_serialization_converter_version = '0.8.0'
         lottie_version = '5.2.0'
+        coil_version = '2.2.2'
     }
 }
 
