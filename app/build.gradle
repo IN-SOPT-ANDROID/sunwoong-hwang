@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.10'
+    id 'com.google.dagger.hilt.android'
 }
 
 Properties properties = new Properties()
@@ -86,4 +87,12 @@ dependencies {
 
     // Coil
     implementation "io.coil-kt:coil:$coil_version"
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+}
+
+kapt {
+    correctErrorTypes true
 }
