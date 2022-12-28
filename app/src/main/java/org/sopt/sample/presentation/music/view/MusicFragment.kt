@@ -2,9 +2,7 @@ package org.sopt.sample.presentation.music.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
 import org.sopt.sample.databinding.FragmentMusicBinding
@@ -34,7 +32,6 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_mu
 
     private fun setAdapter() {
         val adapter = MusicAdapter()
-        binding.musicRv.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.musicRv.adapter = adapter
         viewModel.musicList.observe(
             viewLifecycleOwner

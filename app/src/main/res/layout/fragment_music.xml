@@ -35,6 +35,7 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:spanCount="2"
             tools:listitem="@layout/item_music" />
 
         <com.airbnb.lottie.LottieAnimationView
