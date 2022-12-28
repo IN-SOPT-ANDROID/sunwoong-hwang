@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="org.sopt.sample.presentation.signin.viewmodel.SignInViewModel" />
+            type="org.sopt.sample.presentation.auth.viewmodel.AuthViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,7 +104,8 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/background_button"
             android:backgroundTint="@color/selector_button_text_color"
-            android:enabled="@{viewModel.isValid()}"
+            android:enabled="@{viewModel.isValidEmail &amp;&amp; viewModel.isValidPassword}"
+            android:onClick="@{() -> viewModel.signIn()}"
             android:text="@string/sign_in"
             app:layout_constraintBottom_toTopOf="@id/sign_in_sign_up_btn"
             app:layout_constraintEnd_toEndOf="@id/sign_in_end_gl"

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="org.sopt.sample.presentation.signup.viewmodel.SignUpViewModel" />
+            type="org.sopt.sample.presentation.auth.viewmodel.AuthViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -150,7 +150,8 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/background_button"
             android:backgroundTint="@color/selector_button_text_color"
-            android:enabled="@{viewModel.isValid()}"
+            android:enabled="@{viewModel.isValidEmail &amp;&amp; viewModel.isValidPassword &amp;&amp; viewModel.isValidName}"
+            android:onClick="@{() -> viewModel.signUp()}"
             android:text="@string/sign_up_check"
             app:layout_constraintEnd_toEndOf="@id/sign_up_end_gl"
             app:layout_constraintStart_toStartOf="@id/sign_up_start_gl" />

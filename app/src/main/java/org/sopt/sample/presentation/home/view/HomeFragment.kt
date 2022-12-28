@@ -2,17 +2,19 @@ package org.sopt.sample.presentation.home.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
 import org.sopt.sample.databinding.FragmentHomeBinding
-import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.home.adapter.HomeAdapter
 import org.sopt.sample.presentation.home.viewmodel.HomeViewModel
 import org.sopt.sample.util.EventObserver
 import org.sopt.sample.util.binding.BindingFragment
 
+@AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    private val viewModel: HomeViewModel by viewModels { ViewModelFactory() }
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

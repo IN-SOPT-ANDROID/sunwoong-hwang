@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.10'
+    id 'com.google.dagger.hilt.android'
 }
 
 Properties properties = new Properties()
@@ -22,6 +23,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "SOPT_BASE_URL", properties["sopt.base.url"]
         buildConfigField "String", "REGRES_BASE_URL", properties["regres.base.url"]
+        buildConfigField "String", "MUSIC_BASE_URL", properties["music.base.url"]
     }
 
     buildTypes {
@@ -82,4 +84,15 @@ dependencies {
 
     // Lottie
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+    // Coil
+    implementation "io.coil-kt:coil:$coil_version"
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+}
+
+kapt {
+    correctErrorTypes true
 }

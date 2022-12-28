@@ -1,14 +1,16 @@
 package org.sopt.sample.presentation
 
 import android.os.Bundle
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
 import org.sopt.sample.databinding.ActivityMainBinding
-import org.sopt.sample.presentation.gallery.view.GalleryFragment
 import org.sopt.sample.presentation.home.view.HomeFragment
+import org.sopt.sample.presentation.music.view.MusicFragment
 import org.sopt.sample.presentation.search.view.SearchFragment
 import org.sopt.sample.util.binding.BindingActivity
 import org.sopt.sample.util.extension.replace
 
+@AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun startTargetFragment(itemId: Int) = when (itemId) {
         R.id.bottom_navigation_home -> replace<HomeFragment>(R.id.main_fcv)
-        R.id.bottom_navigation_gallery -> replace<GalleryFragment>(R.id.main_fcv)
+        R.id.bottom_navigation_music -> replace<MusicFragment>(R.id.main_fcv)
         R.id.bottom_navigation_search -> replace<SearchFragment>(R.id.main_fcv)
         else -> throw IllegalArgumentException("Not found error.")
     }

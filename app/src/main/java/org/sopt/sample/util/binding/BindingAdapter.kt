@@ -2,6 +2,7 @@ package org.sopt.sample.util.binding
 
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import org.sopt.sample.util.GlideApp
 
@@ -15,7 +16,7 @@ fun imageUrl(view: ImageView, imageUrl: String?) {
 }
 
 @BindingAdapter("visibility")
-fun setVisibility(view: View, isVisible: Boolean?) {
+fun View.setVisibility(isVisible: Boolean?) {
     if (isVisible == null) return
-    view.visibility = if (isVisible) View.VISIBLE else View.GONE
+    this.isVisible = isVisible
 }
