@@ -13,7 +13,8 @@ import okio.source
 
 class ContentUriRequestBody(
     context: Context,
-    private val uri: Uri
+    private val uri: Uri,
+    private val name: String
 ) : RequestBody() {
     private val contentResolver = context.contentResolver
 
@@ -50,5 +51,5 @@ class ContentUriRequestBody(
         }
     }
 
-    fun toFormData() = MultipartBody.Part.createFormData("image", getFileName(), this)
+    fun toFormData() = MultipartBody.Part.createFormData(name, getFileName(), this)
 }

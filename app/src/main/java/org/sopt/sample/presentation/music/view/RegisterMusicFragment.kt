@@ -6,7 +6,6 @@ import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,9 +22,15 @@ class RegisterMusicFragment :
     BindingFragment<FragmentRegisterMusicBinding>(R.layout.fragment_register_music) {
     private val viewModel: MusicViewModel by viewModels()
     private val imageLauncher = registerForActivityResult(PickVisualMedia()) { uri ->
-        if (uri != null) {
-            binding.registerMusicIv.load(uri)
-            viewModel.setImageUriToPart(ContentUriRequestBody(requireContext(), uri).toFormData())
+        binding.registerMusicIv.load(uri)
+        uri?.let {
+            viewModel.setImageUriToPart(
+                ContentUriRequestBody(
+                    requireContext(),
+                    it,
+                    "image"
+                ).toFormData()
+            )
         }
     }
     private val permissionLauncher = registerForActivityResult(RequestPermission()) {}
