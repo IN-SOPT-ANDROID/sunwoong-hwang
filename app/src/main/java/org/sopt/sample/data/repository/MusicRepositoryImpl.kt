@@ -6,8 +6,11 @@ import org.sopt.sample.data.model.MusicListResponse
 import org.sopt.sample.data.model.MusicResponse
 import org.sopt.sample.data.source.remote.MusicDataSource
 import org.sopt.sample.domain.repository.MusicRepository
+import javax.inject.Inject
 
-class MusicRepositoryImpl(private val musicDataSource: MusicDataSource) : MusicRepository {
+class MusicRepositoryImpl @Inject constructor(
+    private val musicDataSource: MusicDataSource
+) : MusicRepository {
     override suspend fun registerMusic(
         image: MultipartBody.Part,
         contents: RequestBody

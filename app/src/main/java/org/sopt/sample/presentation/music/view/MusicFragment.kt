@@ -2,18 +2,20 @@ package org.sopt.sample.presentation.music.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
 import org.sopt.sample.databinding.FragmentMusicBinding
-import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.music.adapter.MusicAdapter
 import org.sopt.sample.presentation.music.viewmodel.MusicViewModel
 import org.sopt.sample.util.EventObserver
 import org.sopt.sample.util.binding.BindingFragment
 
+@AndroidEntryPoint
 class MusicFragment : BindingFragment<FragmentMusicBinding>(R.layout.fragment_music) {
-    private val viewModel: MusicViewModel by viewModels { ViewModelFactory() }
+    private val viewModel: MusicViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

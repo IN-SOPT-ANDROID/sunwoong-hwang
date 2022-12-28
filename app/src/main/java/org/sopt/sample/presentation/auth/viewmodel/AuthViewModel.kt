@@ -1,13 +1,18 @@
 package org.sopt.sample.presentation.auth.viewmodel
 
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.sopt.sample.data.model.SignInRequest
 import org.sopt.sample.data.model.SignUpRequest
 import org.sopt.sample.domain.repository.AuthRepository
 import org.sopt.sample.util.Event
+import javax.inject.Inject
 
-class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
+@HiltViewModel
+class AuthViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
     private val emailRegex = Regex(EMAIL_REGEX)
     private val passwordRegex = Regex(PASSWORD_REGEX)
     val email = MutableLiveData<String>()

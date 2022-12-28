@@ -5,8 +5,11 @@ import org.sopt.sample.data.model.SignInRequest
 import org.sopt.sample.data.model.SignInResponse
 import org.sopt.sample.data.model.SignUpRequest
 import org.sopt.sample.data.model.SignUpResponse
+import javax.inject.Inject
 
-class AuthDataSource(private val authService: AuthService) {
+class AuthDataSource @Inject constructor(
+    private val authService: AuthService
+) {
     suspend fun signIn(signInRequest: SignInRequest): SignInResponse =
         authService.signIn(signInRequest)
 

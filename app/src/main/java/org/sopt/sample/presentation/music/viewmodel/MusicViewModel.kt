@@ -1,6 +1,7 @@
 package org.sopt.sample.presentation.music.viewmodel
 
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import org.sopt.sample.data.model.Music
@@ -8,8 +9,12 @@ import org.sopt.sample.data.model.MusicRequest
 import org.sopt.sample.domain.repository.MusicRepository
 import org.sopt.sample.util.Event
 import org.sopt.sample.util.extension.addSourceList
+import javax.inject.Inject
 
-class MusicViewModel(private val musicRepository: MusicRepository) : ViewModel() {
+@HiltViewModel
+class MusicViewModel @Inject constructor(
+    private val musicRepository: MusicRepository
+) : ViewModel() {
     private val _musicList = MutableLiveData<List<Music>>()
     val musicList: LiveData<List<Music>>
         get() = _musicList

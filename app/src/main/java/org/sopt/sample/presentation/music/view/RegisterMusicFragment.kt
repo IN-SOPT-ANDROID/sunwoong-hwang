@@ -6,20 +6,22 @@ import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import coil.load
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
 import org.sopt.sample.databinding.FragmentRegisterMusicBinding
-import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.presentation.music.viewmodel.MusicViewModel
 import org.sopt.sample.util.ContentUriRequestBody
 import org.sopt.sample.util.EventObserver
 import org.sopt.sample.util.binding.BindingFragment
 import org.sopt.sample.util.extension.hideKeyboard
 
+@AndroidEntryPoint
 class RegisterMusicFragment :
     BindingFragment<FragmentRegisterMusicBinding>(R.layout.fragment_register_music) {
-    private val viewModel: MusicViewModel by viewModels { ViewModelFactory() }
+    private val viewModel: MusicViewModel by viewModels()
     private val imageLauncher = registerForActivityResult(PickVisualMedia()) { uri ->
         if (uri != null) {
             binding.registerMusicIv.load(uri)

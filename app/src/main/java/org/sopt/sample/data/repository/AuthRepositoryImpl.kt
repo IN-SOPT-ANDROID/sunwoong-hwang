@@ -6,8 +6,11 @@ import org.sopt.sample.data.model.SignUpRequest
 import org.sopt.sample.data.model.SignUpResponse
 import org.sopt.sample.data.source.remote.AuthDataSource
 import org.sopt.sample.domain.repository.AuthRepository
+import javax.inject.Inject
 
-class AuthRepositoryImpl(private val authDataSource: AuthDataSource) : AuthRepository {
+class AuthRepositoryImpl @Inject constructor(
+    private val authDataSource: AuthDataSource
+) : AuthRepository {
     override suspend fun signIn(signInRequest: SignInRequest): SignInResponse =
         authDataSource.signIn(signInRequest)
 

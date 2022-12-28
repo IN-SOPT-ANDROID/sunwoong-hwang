@@ -3,18 +3,19 @@ package org.sopt.sample.presentation.auth.view
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
 import org.sopt.sample.databinding.ActivitySignInBinding
 import org.sopt.sample.presentation.MainActivity
 import org.sopt.sample.presentation.auth.viewmodel.AuthViewModel
-import org.sopt.sample.presentation.common.ViewModelFactory
 import org.sopt.sample.util.EventObserver
 import org.sopt.sample.util.binding.BindingActivity
 import org.sopt.sample.util.extension.hideKeyboard
 import org.sopt.sample.util.extension.showToast
 
+@AndroidEntryPoint
 class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
-    private val viewModel: AuthViewModel by viewModels { ViewModelFactory() }
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
